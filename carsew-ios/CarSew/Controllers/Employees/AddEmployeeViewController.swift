@@ -28,19 +28,6 @@ class AddEmployeeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // reload table view
-    }
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    
     // MARK: - Private
     
     
@@ -52,7 +39,10 @@ class AddEmployeeViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
+        // TODO: - Send request to backend with the newly created employee (POST)
         
+        // send employee
+        // dismiss and reload
     }
     
 }

@@ -12,7 +12,7 @@ class ItemDetailsViewController: UIViewController {
     
     // MARK: - Vars
     
-    
+    var item: Item?
     
     // MARK: - IBOutlets
     
@@ -20,36 +20,42 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var employeeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var colorView: UIView!
+    @IBOutlet weak var colorView: UIView! {
+        didSet {
+            colorView.layer.cornerRadius = colorView.frame.width / 2
+        }
+    }
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // reload table view
-    }
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        displayItemDetails()
     }
     
     // MARK: - Private
     
+    private func displayItemDetails() {
+        if let item = item {
+            nameLabel.text = item.name
+            typeLabel.text = item.type.name
+            employeeLabel.text = item.employee.name
+            priceLabel.text = "\(item.price.rounded(toPlaces: 2))"
+            colorView.backgroundColor = item.color.uiColor
+        }
+    }
+    
+    private func sendItemProduceRequest() {
+        // TODO: - Send item produce request with item id (POST)
+        
+        print("Proooduuuciiiing")
+    }
     
     // MARK: - IBActions
     
     @IBAction func produceButtonTapped(_ sender: UIButton) {
-        
+        sendItemProduceRequest()
     }
     
 }

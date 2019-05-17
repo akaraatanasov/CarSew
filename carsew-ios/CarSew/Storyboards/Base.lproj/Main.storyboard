@@ -20,8 +20,13 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2xy-y9-srB">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="pbv-bo-4I5" userLabel="Footer">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.85095518827438354" green="0.84687560796737671" blue="0.85915488004684448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemCell" textLabel="V3w-fG-56E" detailTextLabel="LJq-RA-ZTx" style="IBUITableViewCellStyleSubtitle" id="J78-Hm-jtR">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -77,7 +82,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="761" y="-320"/>
+            <point key="canvasLocation" x="760.79999999999995" y="-320.68965517241384"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="39S-V4-mk0">
@@ -362,7 +367,13 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NQB-l8-wk6">
                                 <rect key="frame" x="0.0" y="324" width="375" height="294"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96675978890000003" green="0.96675978890000003" blue="0.96675978890000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="USj-Py-qd3" userLabel="Footer">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.85095518830000005" green="0.84687560799999995" blue="0.85915487999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="employeeItemCell" id="0u5-ka-aCW">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -420,6 +431,7 @@
                         <outlet property="nameLabel" destination="FrJ-8v-pW2" id="Rhd-Ua-D6O"/>
                         <outlet property="salaryLabel" destination="Rpt-h7-MdD" id="H8r-hC-ujR"/>
                         <outlet property="tableView" destination="NQB-l8-wk6" id="CW4-xa-KPo"/>
+                        <segue destination="ETo-f7-GNU" kind="show" identifier="showItemDetailsFromEmployee" id="Cg9-qZ-9Xb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4U-VM-nrk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -523,8 +535,13 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s3W-gw-bJm">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="5h9-SB-7d7" userLabel="Footer">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.85095518830000005" green="0.84687560799999995" blue="0.85915487999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="employeeCell" textLabel="lGo-iS-O0K" detailTextLabel="fFT-RC-c7Z" style="IBUITableViewCellStyleSubtitle" id="TMm-wl-KPb">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -580,7 +597,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1564" y="-320"/>
+            <point key="canvasLocation" x="1564" y="-320.68965517241384"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -651,7 +668,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E9Z-mU-SqC">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="S9I-Mb-EzW" userLabel="Overall View">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -679,6 +697,11 @@
                                         <constraint firstItem="Tmj-vC-AiI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bS1-Mg-Dnf" secondAttribute="trailing" constant="12" id="iTg-v6-Uf7"/>
                                         <constraint firstItem="Tmj-vC-AiI" firstAttribute="bottom" secondItem="bS1-Mg-Dnf" secondAttribute="bottom" id="tZS-4e-tii"/>
                                     </constraints>
+                                </view>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="u2S-Yh-XrO" userLabel="Footer">
+                                    <rect key="frame" x="0.0" y="116" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.85095518830000005" green="0.84687560799999995" blue="0.85915487999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="expensesCell" textLabel="nO2-aX-pHC" detailTextLabel="ese-bn-1Ru" style="IBUITableViewCellStyleValue1" id="6QQ-8v-iCc">
@@ -723,6 +746,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Expenses" id="lWX-fv-lUx"/>
                     <connections>
+                        <outlet property="overallExpensesLabel" destination="Tmj-vC-AiI" id="qXY-Eb-qLJ"/>
                         <outlet property="tableView" destination="E9Z-mU-SqC" id="Gvm-R8-96J"/>
                     </connections>
                 </viewController>
@@ -740,7 +764,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-hg-crr">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="95O-td-JaK" userLabel="Overall View">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -768,6 +793,11 @@
                                         <constraint firstItem="gRg-Pf-B3l" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aTj-Cb-gh3" secondAttribute="trailing" constant="12" id="kU2-uF-i7C"/>
                                         <constraint firstItem="aTj-Cb-gh3" firstAttribute="top" secondItem="95O-td-JaK" secondAttribute="top" constant="12" id="wlM-yi-h1d"/>
                                     </constraints>
+                                </view>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="aQn-eD-R0g" userLabel="Footer">
+                                    <rect key="frame" x="0.0" y="116" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.85095518830000005" green="0.84687560799999995" blue="0.85915487999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="incomeCell" textLabel="5Sz-ER-vfE" detailTextLabel="yJs-lN-yQk" style="IBUITableViewCellStyleValue1" id="GZI-91-328">
@@ -812,12 +842,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Income" id="a1z-07-kBF"/>
                     <connections>
+                        <outlet property="overallIncomeLabel" destination="gRg-Pf-B3l" id="APv-F6-IZg"/>
                         <outlet property="tableView" destination="Xva-hg-crr" id="Arg-ux-dqk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sBn-ba-HvC" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3140" y="-322"/>
+            <point key="canvasLocation" x="3140" y="-322.48875562218893"/>
         </scene>
         <!--Profit-->
         <scene sceneID="32p-ar-f4D">
@@ -829,7 +860,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fse-gL-vFx">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96675978890000003" green="0.96675978890000003" blue="0.96675978890000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="iw6-yS-fYh" userLabel="Overall View">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -857,6 +889,11 @@
                                         <constraint firstAttribute="bottom" secondItem="v1y-lT-Drh" secondAttribute="bottom" constant="11" id="kTs-vb-gxE"/>
                                         <constraint firstItem="v1y-lT-Drh" firstAttribute="top" secondItem="iw6-yS-fYh" secondAttribute="top" constant="12" id="oxm-i9-n68"/>
                                     </constraints>
+                                </view>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="8sa-vh-3Cb" userLabel="Footer">
+                                    <rect key="frame" x="0.0" y="116" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.85095518830000005" green="0.84687560799999995" blue="0.85915487999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profitCell" textLabel="A4F-mM-d2s" detailTextLabel="FEK-hH-rUq" style="IBUITableViewCellStyleValue1" id="jjb-gA-6xC">
@@ -901,12 +938,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Profit" id="cWe-48-bGE"/>
                     <connections>
+                        <outlet property="overallProfitLabel" destination="J3a-Vc-lwP" id="lQN-JL-VYV"/>
                         <outlet property="tableView" destination="fse-gL-vFx" id="a1k-Bv-kdB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3qe-2Y-uh7" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3927" y="-321"/>
+            <point key="canvasLocation" x="3925.5999999999999" y="-321.58920539730138"/>
         </scene>
         <!--Expenses-->
         <scene sceneID="zXl-Ih-NeK">
@@ -978,4 +1016,7 @@
         <image name="profit-fill" width="29" height="29"/>
         <image name="profit-stroke" width="29" height="29"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Cg9-qZ-9Xb"/>
+    </inferredMetricsTieBreakers>
 </document>

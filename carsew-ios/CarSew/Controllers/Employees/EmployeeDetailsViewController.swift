@@ -12,7 +12,10 @@ class EmployeeDetailsViewController: UIViewController {
     
     // MARK: - Vars
     
+    var employee: Employee?
+    var employeeItems = [Item]()
     
+    var selectedItem: Item?
     
     // MARK: - IBOutlets
     
@@ -26,27 +29,61 @@ class EmployeeDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // reload table view
+        displayEmployeeDetails()
+        loadEmployeeDetails()
     }
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case "showItemDetailsFromEmployee":
+            if let itemDetailsViewController = segue.destination as? ItemDetailsViewController {
+                itemDetailsViewController.item = selectedItem
+            }
+        default: break
+        }
     }
     
     // MARK: - Private
     
+    private func displayEmployeeDetails() {
+        if let employee = employee {
+            nameLabel.text = employee.name
+            experienceLabel.text = employee.experience.name
+            salaryLabel.text = "\(employee.salary)"
+        }
+    }
     
-    // MARK: - IBActions
+    private func loadEmployeeDetails() {
+        // TODO: - Request employee details (mainly items) by id (GET)
+    }
     
+}
+
+// MARK: - Table View Data Source
+
+extension EmployeeDetailsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return employeeItems.count
+    }
     
-    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "employeeItemCell", for: indexPath)
+        let currentItem = employeeItems[indexPath.row]
+        
+        cell.textLabel?.text = currentItem.name
+        cell.detailTextLabel?.text = currentItem.type.name
+        cell.backgroundColor = currentItem.color.uiColor
+        
+        return cell
+    }
+}
+
+extension EmployeeDetailsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectedItem = employeeItems[indexPath.row]
+        performSegue(withIdentifier: "showItemDetailsFromEmployee", sender: self)
+    }
 }

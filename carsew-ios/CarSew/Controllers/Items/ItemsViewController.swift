@@ -18,6 +18,8 @@ class ItemsViewController: UIViewController {
         }
     }
     
+    var selectedItem: Item?
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var tableView: UITableView!
@@ -39,14 +41,20 @@ class ItemsViewController: UIViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case "showItemDetails":
+            if let itemDetailsViewController = segue.destination as? ItemDetailsViewController {
+                itemDetailsViewController.item = selectedItem
+            }
+        default: break
+        }
     }
     
     // MARK: - Private
     
     private func loadItems() {
-        // request items from back-end
+        // TODO: - Request items from back-end
+        
         let theBest = Employee(name: "Ruler", experience: .expert, salary: 19.48)
         items.append(Item(name: "Mercedes seat", type: .seat, color: .brown, employee: theBest, price: 349.34))
         items.append(Item(name: "BMW backrest", type: .backrest, color: .red, employee: theBest, price: 832.23))
@@ -69,8 +77,8 @@ extension ItemsViewController: UITableViewDataSource {
         let currentItem = items[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
-        cell.detailTextLabel?.text = currentItem.type?.name
-        cell.backgroundColor = currentItem.color?.uiColor
+        cell.detailTextLabel?.text = currentItem.type.name
+        cell.backgroundColor = currentItem.color.uiColor
         
         return cell
     }
@@ -81,6 +89,7 @@ extension ItemsViewController: UITableViewDataSource {
 extension ItemsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("Selected row: \(indexPath.row)")
+        selectedItem = items[indexPath.row]
+        performSegue(withIdentifier: "showItemDetails", sender: self)
     }
 }

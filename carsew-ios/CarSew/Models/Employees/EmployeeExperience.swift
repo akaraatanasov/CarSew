@@ -12,10 +12,17 @@ enum EmployeeExperience: Int, Codable {
     case junior = 1
     case expert = 2
     
-    var itemsPerHour: Int {
+    var name: String {
         switch self {
-        case .junior: return 2
-        case .expert: return 3
+        case .junior: return "Junior"
+        case .expert: return "Expert"
+        }
+    }
+    
+    var itemsPerHour: Double {
+        switch self {
+        case .junior: return 2.0
+        case .expert: return 3.0
         }
     }
 }

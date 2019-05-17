@@ -12,11 +12,11 @@ class Employee: Codable {
     
     // MARK: - Vars
     
-    var id: Int?
-    var name: String?
-    var experience: EmployeeExperience?
-    var salary: Double?
-    var items: [Item]?
+    var id: Int? // won't be optional when it comes from the back-end
+    var name: String
+    var experience: EmployeeExperience
+    var salary: Double
+    var items: [Item]
     
     // MARK: - Inits
     
@@ -31,12 +31,12 @@ class Employee: Codable {
     // MARK: - Public
     
     func addItem(item: Item) {
-        items?.append(item)
+        items.append(item)
     }
     
     func removeItem(item: Item) {
-        if let itemToRemoveIndex = items?.firstIndex(of: item) {
-            items?.remove(at: itemToRemoveIndex)
+        if let itemToRemoveIndex = items.firstIndex(of: item) {
+            items.remove(at: itemToRemoveIndex)
         }   
     }
 }
