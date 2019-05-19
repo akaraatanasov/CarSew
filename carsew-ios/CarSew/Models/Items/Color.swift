@@ -16,8 +16,22 @@ enum Color: Int, Codable {
     case blue = 5
     case yellow = 6
     case brown = 7
-    case purple = 9
-    case pink = 10
+    case purple = 8
+    case pink = 9
+    
+    var name: String {
+        switch self {
+        case .black: return "Black"
+        case .white: return "White"
+        case .red: return "Red"
+        case .green: return "Green"
+        case .blue: return "Blue"
+        case .yellow: return "Yellow"
+        case .brown: return "Brown"
+        case .purple: return "Purple"
+        case .pink: return "Pink"
+        }
+    }
     
     var uiColor: UIColor {
         switch self {
