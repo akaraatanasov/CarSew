@@ -8,6 +8,11 @@
 
 import UIKit
 
+class ColorType: Codable {
+    var id: Int?
+    var name: String?
+}
+
 enum Color: Int, Codable {
     case black = 1
     case white = 2

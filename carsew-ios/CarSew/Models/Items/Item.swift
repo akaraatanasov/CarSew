@@ -12,45 +12,67 @@ class Item: Codable {
     
     // MARK: - Vars
     
-    var id: Int? // won't be optional when it comes from the back-end
-    var name: String
-    var type: ItemType
-    var color: Color
-    var employee: Employee
-    var price: Double
+    var id: Int?
+    var name: String?
+    var price: Double?
+    var type: ItemType?
+    var color: ColorType?
+    var employee: EmployeeResponse?
+    var isProduced: Bool?
+    var isSold: Bool?
     
-    var cost: Double { // TODO: - Do this calculation on the backend
-        let materialsPrice = type.materialsPrice
-        let employeeSalary = employee.salary
-        let itemsPerHour = employee.experience.itemsPerHour
-        
-        return (materialsPrice + employeeSalary / itemsPerHour).rounded(toPlaces: 2)
+    var cost: Double {
+        let materialsPrice = type!.materialsPrice!
+        let employeeSalary = employee!.salary!
+        let itemsPerHour = employee!.experience!.itemsPerHour!
+
+        return (materialsPrice + employeeSalary / Double(itemsPerHour)).rounded(toPlaces: 2)
     }
-    
-    var profit: Double { // TODO: - Do this calculation on the backend
-        return (price - cost).rounded(toPlaces: 2)
-    }
-    
-    // MARK: - Inits
-    
-    init(name: String, type: ItemType, color: Color, employee: Employee, price: Double) {
-        self.id = 0
-        self.name = name
-        self.type = type
-        self.color = color
-        self.employee = employee
-        self.price = price
+
+    var profit: Double {
+        return (price! - cost).rounded(toPlaces: 2)
     }
 }
 
-extension Item: Comparable {
-    static func < (lhs: Item, rhs: Item) -> Bool {
-        return lhs.price < rhs.price
+class CreateItemRequest: Codable {
+    var name: String
+    var typeId: Int
+    var colorId: Int
+    var employeeId: Int
+    var price: Double
+    
+    init(name: String, typeId: Int, colorId: Int, employeeId: Int, price: Double) {
+        self.name = name
+        self.typeId = typeId
+        self.colorId = colorId
+        self.employeeId = employeeId
+        self.price = price
     }
     
-    static func == (lhs: Item, rhs: Item) -> Bool {
-        return lhs.id! == rhs.id!
+    func toDictionary() -> [String: Any] {
+        return ["name": name,
+                "typeId": typeId,
+                "colorId": colorId,
+                "employeeId": employeeId,
+                "price": price]
     }
+}
+
+class CreateItemResponse: Codable {
+    var colors: [ColorType]?
+    var types: [ItemType]?
+    var employees: [EmployeeResponse]?
+}
+
+// for create item (for EmployeeResponse)
+class ItemResponse: Codable {
+    var id: Int?
+    var name: String?
+    var price: Double?
+    var type: ItemType?
+    var color: ColorType?
+    var isProduced: Bool?
+    var isSold: Bool?
 }
 
 // TODO: - Move this to Extensions file if such file becomes existant

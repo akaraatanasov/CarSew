@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		111EBCF02292FED500FBB925 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EBCEF2292FED500FBB925 /* NetworkManager.swift */; };
+		111EBCF2229319EF00FBB925 /* SuccessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EBCF1229319EF00FBB925 /* SuccessType.swift */; };
+		111EBCF52293459200FBB925 /* Accounting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EBCF42293459200FBB925 /* Accounting.swift */; };
 		1122D223228EE22900CE2D84 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D222228EE22900CE2D84 /* ItemsViewController.swift */; };
 		1122D225228EE23900CE2D84 /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D224228EE23900CE2D84 /* ItemDetailsViewController.swift */; };
 		1122D227228EE24B00CE2D84 /* EmployeesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D226228EE24B00CE2D84 /* EmployeesViewController.swift */; };
@@ -18,9 +21,9 @@
 		1122D233228EE2AA00CE2D84 /* AddEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D232228EE2AA00CE2D84 /* AddEmployeeViewController.swift */; };
 		1122D237228EEFD000CE2D84 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D236228EEFD000CE2D84 /* Item.swift */; };
 		1122D239228EF00400CE2D84 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D238228EF00400CE2D84 /* ItemType.swift */; };
-		1122D23B228EF4F500CE2D84 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D23A228EF4F500CE2D84 /* Color.swift */; };
+		1122D23B228EF4F500CE2D84 /* ColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D23A228EF4F500CE2D84 /* ColorType.swift */; };
 		1122D23D228EF84800CE2D84 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D23C228EF84800CE2D84 /* Employee.swift */; };
-		1122D23F228EF8C900CE2D84 /* EmployeeExperience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D23E228EF8C900CE2D84 /* EmployeeExperience.swift */; };
+		1122D23F228EF8C900CE2D84 /* ExperienceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D23E228EF8C900CE2D84 /* ExperienceType.swift */; };
 		11921FBD228D8346005503F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11921FBC228D8346005503F6 /* AppDelegate.swift */; };
 		11921FC4228D8346005503F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11921FC2228D8346005503F6 /* Main.storyboard */; };
 		11921FC6228D8349005503F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11921FC5228D8349005503F6 /* Assets.xcassets */; };
@@ -28,6 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		111EBCEF2292FED500FBB925 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		111EBCF1229319EF00FBB925 /* SuccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessType.swift; sourceTree = "<group>"; };
+		111EBCF42293459200FBB925 /* Accounting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounting.swift; sourceTree = "<group>"; };
 		1122D222228EE22900CE2D84 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		1122D224228EE23900CE2D84 /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 		1122D226228EE24B00CE2D84 /* EmployeesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesViewController.swift; sourceTree = "<group>"; };
@@ -39,9 +45,9 @@
 		1122D232228EE2AA00CE2D84 /* AddEmployeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmployeeViewController.swift; sourceTree = "<group>"; };
 		1122D236228EEFD000CE2D84 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		1122D238228EF00400CE2D84 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
-		1122D23A228EF4F500CE2D84 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		1122D23A228EF4F500CE2D84 /* ColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorType.swift; sourceTree = "<group>"; };
 		1122D23C228EF84800CE2D84 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
-		1122D23E228EF8C900CE2D84 /* EmployeeExperience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeExperience.swift; sourceTree = "<group>"; };
+		1122D23E228EF8C900CE2D84 /* ExperienceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceType.swift; sourceTree = "<group>"; };
 		11921FB9228D8346005503F6 /* CarSew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarSew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11921FBC228D8346005503F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11921FC3228D8346005503F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -61,6 +67,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		111EBCF32293457600FBB925 /* Accounting */ = {
+			isa = PBXGroup;
+			children = (
+				111EBCF42293459200FBB925 /* Accounting.swift */,
+			);
+			path = Accounting;
+			sourceTree = "<group>";
+		};
 		1122D21A228EE17B00CE2D84 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +88,8 @@
 			children = (
 				1122D234228EE30700CE2D84 /* Items */,
 				1122D235228EE31300CE2D84 /* Employees */,
+				111EBCF1229319EF00FBB925 /* SuccessType.swift */,
+				111EBCF32293457600FBB925 /* Accounting */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -139,7 +155,7 @@
 			children = (
 				1122D236228EEFD000CE2D84 /* Item.swift */,
 				1122D238228EF00400CE2D84 /* ItemType.swift */,
-				1122D23A228EF4F500CE2D84 /* Color.swift */,
+				1122D23A228EF4F500CE2D84 /* ColorType.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -148,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				1122D23C228EF84800CE2D84 /* Employee.swift */,
-				1122D23E228EF8C900CE2D84 /* EmployeeExperience.swift */,
+				1122D23E228EF8C900CE2D84 /* ExperienceType.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -173,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				11921FBC228D8346005503F6 /* AppDelegate.swift */,
+				111EBCEF2292FED500FBB925 /* NetworkManager.swift */,
 				1122D21B228EE19900CE2D84 /* Models */,
 				1122D21C228EE1AB00CE2D84 /* Controllers */,
 				1122D21A228EE17B00CE2D84 /* Storyboards */,
@@ -264,14 +281,17 @@
 			files = (
 				1122D22F228EE28300CE2D84 /* ProfitViewController.swift in Sources */,
 				11921FBD228D8346005503F6 /* AppDelegate.swift in Sources */,
-				1122D23F228EF8C900CE2D84 /* EmployeeExperience.swift in Sources */,
+				1122D23F228EF8C900CE2D84 /* ExperienceType.swift in Sources */,
 				1122D239228EF00400CE2D84 /* ItemType.swift in Sources */,
+				111EBCF02292FED500FBB925 /* NetworkManager.swift in Sources */,
 				1122D23D228EF84800CE2D84 /* Employee.swift in Sources */,
+				111EBCF52293459200FBB925 /* Accounting.swift in Sources */,
 				1122D223228EE22900CE2D84 /* ItemsViewController.swift in Sources */,
-				1122D23B228EF4F500CE2D84 /* Color.swift in Sources */,
+				1122D23B228EF4F500CE2D84 /* ColorType.swift in Sources */,
 				1122D229228EE25900CE2D84 /* EmployeeDetailsViewController.swift in Sources */,
 				1122D233228EE2AA00CE2D84 /* AddEmployeeViewController.swift in Sources */,
 				1122D227228EE24B00CE2D84 /* EmployeesViewController.swift in Sources */,
+				111EBCF2229319EF00FBB925 /* SuccessType.swift in Sources */,
 				1122D237228EEFD000CE2D84 /* Item.swift in Sources */,
 				1122D231228EE29E00CE2D84 /* AddItemViewController.swift in Sources */,
 				1122D22D228EE26F00CE2D84 /* IncomeViewController.swift in Sources */,

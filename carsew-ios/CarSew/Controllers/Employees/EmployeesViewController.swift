@@ -12,13 +12,9 @@ class EmployeesViewController: UIViewController {
     
     // MARK: - Vars
     
-    var employees = [Employee]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var employees = [EmployeeResponse]()
     
-    var selectedEmployee: Employee?
+    var selectedEmployee: EmployeeResponse?
     
     // MARK: - IBOutlets
     
@@ -35,7 +31,7 @@ class EmployeesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // reload table view
+        loadEmployees()
     }
     
     // MARK: - Navigation
@@ -53,13 +49,15 @@ class EmployeesViewController: UIViewController {
     // MARK: - Private
     
     private func loadEmployees() {
-        // TODO: - Request employees from back-end
+        NetworkManager.sharedInstance.loadEmployees { [weak self] employees in
+            self?.employees = employees
+            
+            DispatchQueue.main.async { [weak self] in
+                // hide loading indicator
+                self?.tableView.reloadData()
+            }
+        }
         
-        employees.append(Employee(name: "Ruler", experience: .expert, salary: 19.48))
-        employees.append(Employee(name: "Greeny", experience: .junior, salary: 9.53))
-        employees.append(Employee(name: "Sammy", experience: .junior, salary: 12.86))
-        employees.append(Employee(name: "Peter", experience: .expert, salary: 25.53))
-        employees.append(Employee(name: "Simona", experience: .junior, salary: 14.53))
     }
     
 }
@@ -76,7 +74,7 @@ extension EmployeesViewController: UITableViewDataSource {
         let currentEmployee = employees[indexPath.row]
         
         cell.textLabel?.text = currentEmployee.name
-        cell.detailTextLabel?.text = currentEmployee.experience.name
+        cell.detailTextLabel?.text = currentEmployee.experience?.title
         
         return cell
     }

@@ -12,10 +12,10 @@ class EmployeeDetailsViewController: UIViewController {
     
     // MARK: - Vars
     
-    var employee: Employee?
-    var employeeItems = [Item]()
+    var employee: EmployeeResponse?
+    var employeeItems = [ItemResponse]()
     
-    var selectedItem: Item?
+    var selectedItem: ItemResponse?
     
     // MARK: - IBOutlets
     
@@ -36,13 +36,13 @@ class EmployeeDetailsViewController: UIViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "showItemDetailsFromEmployee":
-            if let itemDetailsViewController = segue.destination as? ItemDetailsViewController {
-                itemDetailsViewController.item = selectedItem
-            }
-        default: break
-        }
+//        switch segue.identifier {
+//        case "showItemDetailsFromEmployee":
+//            if let itemDetailsViewController = segue.destination as? ItemDetailsViewController {
+//                itemDetailsViewController.item = selectedItem
+//            }
+//        default: break
+//        }
     }
     
     // MARK: - Private
@@ -50,13 +50,22 @@ class EmployeeDetailsViewController: UIViewController {
     private func displayEmployeeDetails() {
         if let employee = employee {
             nameLabel.text = employee.name
-            experienceLabel.text = employee.experience.name
-            salaryLabel.text = "\(employee.salary)"
+            experienceLabel.text = employee.experience?.title
+            salaryLabel.text = "\(employee.salary ?? 0)"
         }
     }
     
     private func loadEmployeeDetails() {
         // TODO: - Request employee details (mainly items) by id (GET)
+        guard let employeeId = employee?.id else { return }
+        NetworkManager.sharedInstance.loadEmployeeDetails(with: employeeId) { [weak self] employee in
+            if let employeeItems = employee.itemList {
+                self?.employeeItems = employeeItems
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
     
 }
@@ -73,8 +82,8 @@ extension EmployeeDetailsViewController: UITableViewDataSource {
         let currentItem = employeeItems[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
-        cell.detailTextLabel?.text = currentItem.type.name
-        cell.backgroundColor = currentItem.color.uiColor
+        cell.detailTextLabel?.text = currentItem.type?.title
+        cell.backgroundColor = Color(rawValue: currentItem.color!.id!)?.uiColor
         
         return cell
     }

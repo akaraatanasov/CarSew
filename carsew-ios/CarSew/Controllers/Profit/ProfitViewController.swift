@@ -15,16 +15,14 @@ class ProfitViewController: UIViewController {
     var overallProfit: Double? {
         didSet {
             if let overallProfit = overallProfit {
-                overallProfitLabel.text = "\(overallProfit.rounded(toPlaces: 2))"
+                DispatchQueue.main.async { [weak self] in
+                    self?.overallProfitLabel.text = "\(overallProfit.rounded(toPlaces: 2))"
+                }
             }
         }
     }
     
-    var profit = [Item]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var profit = [Item]()
     
     // MARK: - IBOutlets
     
@@ -42,20 +40,24 @@ class ProfitViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // reload table view
+        loadProfit()
     }
     
     // MARK: - Private
     
     private func loadProfit() {
-        // TODO: - Request profit (overallProfit and profit array) from back-end (GET)
-        
-        let theBest = Employee(name: "Ruler", experience: .expert, salary: 19.48)
-        profit.append(Item(name: "Mercedes seat", type: .seat, color: .brown, employee: theBest, price: 349.34))
-        profit.append(Item(name: "BMW backrest", type: .backrest, color: .red, employee: theBest, price: 832.23))
-        profit.append(Item(name: "Volvo handle", type: .doorhandle, color: .purple, employee: theBest, price: 349.34))
-        profit.append(Item(name: "BMW steering wheel", type: .wheel, color: .pink, employee: theBest, price: 349.34))
-        profit.append(Item(name: "Mazda headrest", type: .other, color: .yellow, employee: theBest, price: 349.34))
+        // show loading indicator
+        NetworkManager.sharedInstance.loadProfit { [weak self] profit in
+            if let overallProfit = profit.overall, let profitItems = profit.items {
+                self?.overallProfit = overallProfit
+                self?.profit = profitItems
+                
+                DispatchQueue.main.async { [weak self] in
+                    // hide loading indicator
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
     
 }

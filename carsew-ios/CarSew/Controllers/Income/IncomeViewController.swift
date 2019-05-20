@@ -15,16 +15,14 @@ class IncomeViewController: UIViewController {
     var overallIncome: Double? {
         didSet {
             if let overallIncome = overallIncome {
-                overallIncomeLabel.text = "\(overallIncome.rounded(toPlaces: 2))"
+                DispatchQueue.main.async { [weak self] in
+                    self?.overallIncomeLabel.text = "\(overallIncome.rounded(toPlaces: 2))"
+                }
             }
         }
     }
     
-    var income = [Item]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var income = [Item]()
     
     // MARK: - IBOutlets
     
@@ -42,20 +40,24 @@ class IncomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // reload table view
+        loadIncome()
     }
     
     // MARK: - Private
     
     private func loadIncome() {
-        // TODO: - Request income (overallIncome and income array) from back-end (GET)
-        
-        let theBest = Employee(name: "Ruler", experience: .expert, salary: 19.48)
-        income.append(Item(name: "Mercedes seat", type: .seat, color: .brown, employee: theBest, price: 349.34))
-        income.append(Item(name: "BMW backrest", type: .backrest, color: .red, employee: theBest, price: 832.23))
-        income.append(Item(name: "Volvo handle", type: .doorhandle, color: .purple, employee: theBest, price: 349.34))
-        income.append(Item(name: "BMW steering wheel", type: .wheel, color: .pink, employee: theBest, price: 349.34))
-        income.append(Item(name: "Mazda headrest", type: .other, color: .yellow, employee: theBest, price: 349.34))
+        // show loading indicator
+        NetworkManager.sharedInstance.loadIncome { [weak self] income in
+            if let overallIncome = income.overall, let incomeItems = income.items {
+                self?.overallIncome = overallIncome
+                self?.income = incomeItems
+                
+                DispatchQueue.main.async { [weak self] in
+                    // hide loading indicator
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
     
 }
@@ -72,7 +74,7 @@ extension IncomeViewController: UITableViewDataSource {
         let currentItem = income[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
-        cell.detailTextLabel?.text = "+\(currentItem.price)" // TODO: - Make this green
+        cell.detailTextLabel?.text = "+\(currentItem.price!)" // TODO: - Make this green
         
         return cell
     }

@@ -8,6 +8,12 @@
 
 import Foundation
 
+class ExperienceType: Codable {
+    var id: Int?
+    var title: String?
+    var itemsPerHour: Int?
+}
+
 enum EmployeeExperience: Int, Codable {
     case junior = 1
     case expert = 2

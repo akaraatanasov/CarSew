@@ -12,11 +12,7 @@ class ItemsViewController: UIViewController {
     
     // MARK: - Vars
     
-    var items = [Item]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var items = [Item]()
     
     var selectedItem: Item?
     
@@ -35,7 +31,7 @@ class ItemsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // reload table view
+         loadItems()
     }
     
     // MARK: - Navigation
@@ -53,14 +49,15 @@ class ItemsViewController: UIViewController {
     // MARK: - Private
     
     private func loadItems() {
-        // TODO: - Request items from back-end
-        
-        let theBest = Employee(name: "Ruler", experience: .expert, salary: 19.48)
-        items.append(Item(name: "Mercedes seat", type: .seat, color: .brown, employee: theBest, price: 349.34))
-        items.append(Item(name: "BMW backrest", type: .backrest, color: .red, employee: theBest, price: 832.23))
-        items.append(Item(name: "Volvo handle", type: .doorhandle, color: .purple, employee: theBest, price: 349.34))
-        items.append(Item(name: "BMW steering wheel", type: .wheel, color: .pink, employee: theBest, price: 349.34))
-        items.append(Item(name: "Mazda headrest", type: .other, color: .yellow, employee: theBest, price: 349.34))
+        // show loading indicator
+        NetworkManager.sharedInstance.loadItems { [weak self] items in
+            self?.items = items
+            
+            DispatchQueue.main.async {
+                // hide loading indicator
+                self?.tableView.reloadData()
+            }
+        }
     }
 
 }
@@ -77,8 +74,8 @@ extension ItemsViewController: UITableViewDataSource {
         let currentItem = items[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
-        cell.detailTextLabel?.text = currentItem.type.name
-        cell.backgroundColor = currentItem.color.uiColor
+        cell.detailTextLabel?.text = currentItem.type?.title
+        cell.backgroundColor = Color(rawValue: currentItem.color!.id!)?.uiColor
         
         return cell
     }

@@ -13,8 +13,8 @@ class AddItemViewController: UIViewController {
     // MARK: - Vars
     
     var itemTypes = [ItemType]()
-    var colors = [Color]()
-    var employees = [Employee]()
+    var colors = [ColorType]()
+    var employees = [EmployeeResponse]()
     
     // MARK: - IBOutlets
     
@@ -56,48 +56,50 @@ class AddItemViewController: UIViewController {
     }
     
     private func getAllItemTypes() {
-        // TODO: - Request from backend all item types, colors and employees (GET)
-        
-        itemTypes.append(.seat)
-        itemTypes.append(.backrest)
-        itemTypes.append(.wheel)
-        itemTypes.append(.doorhandle)
-        itemTypes.append(.other)
-        
-        colors.append(.black)
-        colors.append(.white)
-        colors.append(.red)
-        colors.append(.green)
-        colors.append(.blue)
-        colors.append(.yellow)
-        colors.append(.brown)
-        colors.append(.purple)
-        colors.append(.pink)
-        
-        employees.append(Employee(name: "Ruler", experience: .expert, salary: 19.48))
-        employees.append(Employee(name: "Greeny", experience: .junior, salary: 9.53))
-        employees.append(Employee(name: "Sammy", experience: .junior, salary: 12.86))
-        employees.append(Employee(name: "Peter", experience: .expert, salary: 25.53))
-        employees.append(Employee(name: "Simona", experience: .junior, salary: 14.53))
+        // show loading indicator
+        NetworkManager.sharedInstance.loadItemCreate { [weak self] createItems in
+            if let itemTypes = createItems.types, let colors = createItems.colors, let employees = createItems.employees {
+                self?.itemTypes = itemTypes
+                self?.colors = colors
+                self?.employees = employees
+                
+                DispatchQueue.main.async {
+                    // hide loading indicator
+                    self?.pickerView?.reloadAllComponents()
+                }
+            } else {
+                // hide loading indicator
+                // show error
+            }
+        }
     }
     
-    private func getItemFromInput() -> Item? {
+    private func getItemFromInput() -> CreateItemRequest? {
         guard let name = nameTextField.text else { return nil }
         guard let typeName = typeTextField.text else { return nil }
         guard let colorName = colorTextField.text else { return nil }
         guard let employeeName = employeeTextField.text else { return nil }
         guard let priceString = priceTextField.text else { return nil }
         
-        let type = itemTypes.first { $0.name == typeName }
+        let type = itemTypes.first { $0.title == typeName }
         let color = colors.first { $0.name == colorName }
         let employee = employees.first { $0.name == employeeName }
         let price = Double(priceString)
         
-        if let type = type, let color = color, let employee = employee, let price = price {
-            return Item(name: name, type: type, color: color, employee: employee, price: price.rounded(toPlaces: 2))
+        if let typeId = type?.id, let colorId = color?.id, let employeeId = employee?.id, let price = price {
+            return CreateItemRequest(name: name, typeId: typeId, colorId: colorId, employeeId: employeeId, price: price)
         } else {
             return nil
         }
+    }
+    
+    private func presentErrorAlert() {
+        let alertController = UIAlertController(title: "Error",
+                                                message: "The item you tried to add has some incorect info. Please check your inputs!",
+                                                preferredStyle: .alert)
+    
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertController, animated: true)
     }
     
     // MARK: - IBActions
@@ -107,11 +109,19 @@ class AddItemViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        let itemToSend = getItemFromInput()
-        print(itemToSend ?? "nil")
-        // TODO: - Send request to backend with the newly created item (POST)
-        // send item
-        // dismiss and reload
+        if let itemToSend = getItemFromInput() {
+            NetworkManager.sharedInstance.create(item: itemToSend) { [weak self] success in
+                print(success)
+                
+                DispatchQueue.main.async {
+                    if success {
+                        self?.dismiss(animated: true)
+                    } else {
+                        self?.presentErrorAlert()
+                    }
+                }
+            }
+        }
     }
     
 }
@@ -132,7 +142,7 @@ extension AddItemViewController: UIPickerViewDataSource {
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if typeTextField.isFirstResponder { return itemTypes[row].name }
+        if typeTextField.isFirstResponder { return itemTypes[row].title }
         if colorTextField.isFirstResponder { return colors[row].name }
         if employeeTextField.isFirstResponder { return employees[row].name }
         
@@ -144,7 +154,7 @@ extension AddItemViewController: UIPickerViewDataSource {
 
 extension AddItemViewController: UIPickerViewDelegate {
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if typeTextField.isFirstResponder { return typeTextField.text = itemTypes[row].name }
+        if typeTextField.isFirstResponder { return typeTextField.text = itemTypes[row].title }
         if colorTextField.isFirstResponder { return colorTextField.text = colors[row].name }
         if employeeTextField.isFirstResponder { return employeeTextField.text = employees[row].name }
     }

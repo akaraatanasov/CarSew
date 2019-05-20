@@ -12,7 +12,7 @@ class AddEmployeeViewController: UIViewController {
     
     // MARK: - Vars
     
-    var experienceTypes = [EmployeeExperience]()
+    var experienceTypes = [ExperienceType]()
     
     // MARK: - IBOutlets
     
@@ -48,25 +48,38 @@ class AddEmployeeViewController: UIViewController {
     }
     
     private func getAllЕxperienceTypes() {
-        // TODO: - Request from backend all employee experience types (GET)
-        
-        experienceTypes.append(.junior)
-        experienceTypes.append(.expert)
+        // show loading indicator
+        NetworkManager.sharedInstance.loadEmployeeCreate { [weak self] experienceTypes in
+            self?.experienceTypes = experienceTypes
+            DispatchQueue.main.async {
+                // hide loading indicator
+                self?.pickerView?.reloadAllComponents()
+            }
+        }
     }
     
-    private func getEmployeeFromInput() -> Employee? {
+    private func getEmployeeFromInput() -> CreateEmployeeRequest? {
         guard let name = nameTextField.text else { return nil }
         guard let experienceName = experienceTextField.text else { return nil }
         guard let salaryString = salaryTextField.text else { return nil }
         
-        let experience = experienceTypes.first { $0.name == experienceName }
+        let experience = experienceTypes.first { $0.title == experienceName }
         let salary = Double(salaryString)
         
-        if let experience = experience, let salary = salary {
-            return Employee(name: name, experience: experience, salary: salary.rounded(toPlaces: 2))
+        if let experienceId = experience?.id, let salary = salary {
+            return CreateEmployeeRequest(name: name, salary: salary, experienceId: experienceId)
         } else {
             return nil
         }
+    }
+    
+    private func presentErrorAlert() {
+        let alertController = UIAlertController(title: "Error",
+                                                message: "The employee you tried to add has some incorect info. Please check your inputs!",
+                                                preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertController, animated: true)
     }
     
     // MARK: - IBActions
@@ -76,11 +89,19 @@ class AddEmployeeViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        let employeeToSend = getEmployeeFromInput()
-        print(employeeToSend ?? "nil")
-        // TODO: - Send request to backend with the newly created employee (POST)
-        // send employee
-        // dismiss and reload
+        if let employeeToSend = getEmployeeFromInput() {
+            NetworkManager.sharedInstance.create(employee: employeeToSend) { [weak self] success in
+                print(success)
+                
+                DispatchQueue.main.async {
+                    if success {
+                        self?.dismiss(animated: true)
+                    } else {
+                        self?.presentErrorAlert()
+                    }
+                }
+            }
+        }
     }
     
 }
@@ -99,7 +120,7 @@ extension AddEmployeeViewController: UIPickerViewDataSource {
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if experienceTextField.isFirstResponder { return experienceTypes[row].name }
+        if experienceTextField.isFirstResponder { return experienceTypes[row].title }
         
         return nil
     }
@@ -109,7 +130,7 @@ extension AddEmployeeViewController: UIPickerViewDataSource {
 
 extension AddEmployeeViewController: UIPickerViewDelegate {
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if experienceTextField.isFirstResponder { return experienceTextField.text = experienceTypes[row].name }
+        if experienceTextField.isFirstResponder { return experienceTextField.text = experienceTypes[row].title }
     }
 }
 

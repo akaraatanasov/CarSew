@@ -8,7 +8,13 @@
 
 import Foundation
 
-enum ItemType: Int, Codable {
+class ItemType: Codable {
+    var id: Int?
+    var title: String?
+    var materialsPrice: Double?
+}
+
+enum ItemMaterial: Int, Codable {
     case seat = 1
     case backrest = 2
     case wheel = 3

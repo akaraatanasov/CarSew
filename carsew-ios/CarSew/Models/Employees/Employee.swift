@@ -9,34 +9,36 @@
 import Foundation
 
 class Employee: Codable {
-    
-    // MARK: - Vars
-    
-    var id: Int? // won't be optional when it comes from the back-end
+    var id: Int?
+    var name: String?
+    var salary: Double?
+    var experience: ExperienceType?
+    var items: [Item]?
+}
+
+class CreateEmployeeRequest: Codable {
     var name: String
-    var experience: EmployeeExperience
     var salary: Double
-    var items: [Item]
+    var experienceId: Int
     
-    // MARK: - Inits
     
-    init(name: String, experience: EmployeeExperience, salary: Double) {
-        self.id = 0
+    init(name: String, salary: Double, experienceId: Int) {
         self.name = name
-        self.experience = experience
         self.salary = salary
-        self.items = [Item]()
+        self.experienceId = experienceId
     }
     
-    // MARK: - Public
-    
-    func addItem(item: Item) {
-        items.append(item)
+    func toDictionary() -> [String: Any] {
+        return ["name": name,
+                "salary": salary,
+                "experienceId": experienceId]
     }
-    
-    func removeItem(item: Item) {
-        if let itemToRemoveIndex = items.firstIndex(of: item) {
-            items.remove(at: itemToRemoveIndex)
-        }   
-    }
+}
+
+class EmployeeResponse: Codable {
+    var id: Int?
+    var name: String?
+    var salary: Double?
+    var experience: ExperienceType?
+    var itemList: [ItemResponse]?
 }
