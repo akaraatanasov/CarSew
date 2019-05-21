@@ -12,9 +12,9 @@ class EmployeesViewController: UIViewController {
     
     // MARK: - Vars
     
-    var employees = [EmployeeResponse]()
+    var employees = [Employee]()
     
-    var selectedEmployee: EmployeeResponse?
+    var selectedEmployee: Employee?
     
     // MARK: - IBOutlets
     

@@ -75,7 +75,7 @@ extension ItemsViewController: UITableViewDataSource {
         
         cell.textLabel?.text = currentItem.name
         cell.detailTextLabel?.text = currentItem.type?.title
-        cell.backgroundColor = Color(rawValue: currentItem.color!.id!)?.uiColor
+        cell.backgroundColor = currentItem.color?.uiColor
         
         return cell
     }

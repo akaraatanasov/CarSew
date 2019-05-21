@@ -14,7 +14,7 @@ class AddItemViewController: UIViewController {
     
     var itemTypes = [ItemType]()
     var colors = [ColorType]()
-    var employees = [EmployeeResponse]()
+    var employees = [Employee]()
     
     // MARK: - IBOutlets
     
@@ -57,7 +57,7 @@ class AddItemViewController: UIViewController {
     
     private func getAllItemTypes() {
         // show loading indicator
-        NetworkManager.sharedInstance.loadItemCreate { [weak self] createItems in
+        NetworkManager.sharedInstance.loadItemProperties { [weak self] createItems in
             if let itemTypes = createItems.types, let colors = createItems.colors, let employees = createItems.employees {
                 self?.itemTypes = itemTypes
                 self?.colors = colors
@@ -74,7 +74,7 @@ class AddItemViewController: UIViewController {
         }
     }
     
-    private func getItemFromInput() -> CreateItemRequest? {
+    private func getItemFromInput() -> ItemCreate? {
         guard let name = nameTextField.text else { return nil }
         guard let typeName = typeTextField.text else { return nil }
         guard let colorName = colorTextField.text else { return nil }
@@ -87,7 +87,7 @@ class AddItemViewController: UIViewController {
         let price = Double(priceString)
         
         if let typeId = type?.id, let colorId = color?.id, let employeeId = employee?.id, let price = price {
-            return CreateItemRequest(name: name, typeId: typeId, colorId: colorId, employeeId: employeeId, price: price)
+            return ItemCreate(name: name, typeId: typeId, colorId: colorId, employeeId: employeeId, price: price)
         } else {
             return nil
         }
@@ -98,6 +98,15 @@ class AddItemViewController: UIViewController {
                                                 message: "The item you tried to add has some incorect info. Please check your inputs!",
                                                 preferredStyle: .alert)
     
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertController, animated: true)
+    }
+    
+    private func presentPriceErrorAlert() {
+        let alertController = UIAlertController(title: "Error",
+                                                message: "Please enter the price of the item!",
+                                                preferredStyle: .alert)
+        
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         present(alertController, animated: true)
     }

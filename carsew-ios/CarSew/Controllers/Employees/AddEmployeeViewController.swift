@@ -49,7 +49,7 @@ class AddEmployeeViewController: UIViewController {
     
     private func getAllЕxperienceTypes() {
         // show loading indicator
-        NetworkManager.sharedInstance.loadEmployeeCreate { [weak self] experienceTypes in
+        NetworkManager.sharedInstance.loadEmployeeProperties { [weak self] experienceTypes in
             self?.experienceTypes = experienceTypes
             DispatchQueue.main.async {
                 // hide loading indicator
@@ -58,7 +58,7 @@ class AddEmployeeViewController: UIViewController {
         }
     }
     
-    private func getEmployeeFromInput() -> CreateEmployeeRequest? {
+    private func getEmployeeFromInput() -> EmployeeCreate? {
         guard let name = nameTextField.text else { return nil }
         guard let experienceName = experienceTextField.text else { return nil }
         guard let salaryString = salaryTextField.text else { return nil }
@@ -67,7 +67,7 @@ class AddEmployeeViewController: UIViewController {
         let salary = Double(salaryString)
         
         if let experienceId = experience?.id, let salary = salary {
-            return CreateEmployeeRequest(name: name, salary: salary, experienceId: experienceId)
+            return EmployeeCreate(name: name, salary: salary, experienceId: experienceId)
         } else {
             return nil
         }

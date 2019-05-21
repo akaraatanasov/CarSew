@@ -12,10 +12,10 @@ class EmployeeDetailsViewController: UIViewController {
     
     // MARK: - Vars
     
-    var employee: EmployeeResponse?
-    var employeeItems = [ItemResponse]()
+    var employee: Employee?
+    var employeeItems = [Item]()
     
-    var selectedItem: ItemResponse?
+    var selectedItem: Item?
     
     // MARK: - IBOutlets
     
@@ -83,7 +83,7 @@ extension EmployeeDetailsViewController: UITableViewDataSource {
         
         cell.textLabel?.text = currentItem.name
         cell.detailTextLabel?.text = currentItem.type?.title
-        cell.backgroundColor = Color(rawValue: currentItem.color!.id!)?.uiColor
+        cell.backgroundColor = currentItem.color?.uiColor
         
         return cell
     }

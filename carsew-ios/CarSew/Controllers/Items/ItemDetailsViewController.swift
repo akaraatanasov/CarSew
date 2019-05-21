@@ -42,7 +42,7 @@ class ItemDetailsViewController: UIViewController {
             typeLabel.text = item.type?.title
             employeeLabel.text = item.employee?.name
             priceLabel.text = "\(item.price!.rounded(toPlaces: 2))"
-            colorView.backgroundColor = Color(rawValue: item.color!.id!)?.uiColor
+            colorView.backgroundColor = item.color!.uiColor
         }
     }
     

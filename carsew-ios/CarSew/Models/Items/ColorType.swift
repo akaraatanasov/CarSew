@@ -1,5 +1,5 @@
 //
-//  Color.swift
+//  ColorType.swift
 //  CarSew
 //
 //  Created by Alexander Karaatanasov on 17.05.19.
@@ -11,44 +11,24 @@ import UIKit
 class ColorType: Codable {
     var id: Int?
     var name: String?
-}
-
-enum Color: Int, Codable {
-    case black = 1
-    case white = 2
-    case red = 3
-    case green = 4
-    case blue = 5
-    case yellow = 6
-    case brown = 7
-    case purple = 8
-    case pink = 9
-    
-    var name: String {
-        switch self {
-        case .black: return "Black"
-        case .white: return "White"
-        case .red: return "Red"
-        case .green: return "Green"
-        case .blue: return "Blue"
-        case .yellow: return "Yellow"
-        case .brown: return "Brown"
-        case .purple: return "Purple"
-        case .pink: return "Pink"
-        }
-    }
     
     var uiColor: UIColor {
-        switch self {
-        case .black: return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) // (0, 0, 0)
-        case .white: return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) // (255, 255, 255)
-        case .red: return #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1) // (255, 0, 0)
-        case .green: return #colorLiteral(red: 0, green: 1, blue: 0, alpha: 1) // (0, 255, 0)
-        case .blue: return #colorLiteral(red: 0, green: 0, blue: 1, alpha: 1) // (0, 0, 255)
-        case .yellow: return #colorLiteral(red: 1, green: 1, blue: 0, alpha: 1) // (255, 255, 0)
-        case .brown: return #colorLiteral(red: 0.5450980392, green: 0.2705882353, blue: 0.07450980392, alpha: 1) // (139, 69, 19)
-        case .purple: return #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1) // (142, 90, 247)
-        case .pink: return #colorLiteral(red: 1, green: 0.6781052351, blue: 0.8084986806, alpha: 1) // (255, 173, 206)
+        switch id {
+        case 1: return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) // (0, 0, 0)
+        case 2: return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) // (255, 255, 255)
+        case 3: return #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1) // (255, 0, 0)
+        case 4: return #colorLiteral(red: 0, green: 1, blue: 0, alpha: 1) // (0, 255, 0)
+        case 5: return #colorLiteral(red: 0, green: 0, blue: 1, alpha: 1) // (0, 0, 255)
+        case 6: return #colorLiteral(red: 1, green: 1, blue: 0, alpha: 1) // (255, 255, 0)
+        case 7: return #colorLiteral(red: 0.5450980392, green: 0.2705882353, blue: 0.07450980392, alpha: 1) // (139, 69, 19)
+        case 8: return #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1) // (142, 90, 247)
+        case 9: return #colorLiteral(red: 1, green: 0.6781052351, blue: 0.8084986806, alpha: 1) // (255, 173, 206)
+        default: return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) // (255, 255, 255)
         }
     }
+    
+//    init(id: Int, name: String) {
+//        self.id = id
+//        self.name = name
+//    }
 }

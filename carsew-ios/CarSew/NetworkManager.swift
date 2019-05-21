@@ -38,14 +38,14 @@ class NetworkManager {
         }
     }
     
-    func loadItemCreate(completionHandler: @escaping (_ types: CreateItemResponse) -> ()) {
+    func loadItemProperties(completionHandler: @escaping (_ types: ItemProperties) -> ()) {
         let path = "item/create"
         let urlString = baseUrl + path
         
         DispatchQueue.global(qos: .userInitiated).async {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
-                    if let jsonCreateItemResponse = try? JSONDecoder().decode(CreateItemResponse.self, from: data) {
+                    if let jsonCreateItemResponse = try? JSONDecoder().decode(ItemProperties.self, from: data) {
                         completionHandler(jsonCreateItemResponse)
                     }
                     return
@@ -96,14 +96,14 @@ class NetworkManager {
         }
     }
     
-    func loadEmployees(completionHandler: @escaping (_ employees: [EmployeeResponse]) -> ()) {
+    func loadEmployees(completionHandler: @escaping (_ employees: [Employee]) -> ()) {
         let path = "employee/list"
         let urlString = baseUrl + path
         
         DispatchQueue.global(qos: .userInitiated).async {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
-                    if let jsonEmployees = try? JSONDecoder().decode([EmployeeResponse].self, from: data) {
+                    if let jsonEmployees = try? JSONDecoder().decode([Employee].self, from: data) {
                         completionHandler(jsonEmployees)
                     }
                     return
@@ -114,7 +114,7 @@ class NetworkManager {
         }
     }
     
-    func loadEmployeeCreate(completionHandler: @escaping (_ experienceTypes: [ExperienceType]) -> ()) {
+    func loadEmployeeProperties(completionHandler: @escaping (_ experienceTypes: [ExperienceType]) -> ()) {
         let path = "employee/create"
         let urlString = baseUrl + path
         
@@ -132,14 +132,14 @@ class NetworkManager {
         }
     }
     
-    func loadEmployeeDetails(with employeeId: Int, completionHandler: @escaping (_ employee: EmployeeResponse) -> ()) {
+    func loadEmployeeDetails(with employeeId: Int, completionHandler: @escaping (_ employee: Employee) -> ()) {
         let path = "employee/\(employeeId)"
         let urlString = baseUrl + path
         
         DispatchQueue.global(qos: .userInitiated).async {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
-                    if let jsonEmployee = try? JSONDecoder().decode(EmployeeResponse.self, from: data) {
+                    if let jsonEmployee = try? JSONDecoder().decode(Employee.self, from: data) {
                         completionHandler(jsonEmployee)
                     }
                     return
@@ -206,23 +206,16 @@ class NetworkManager {
     
     // MARK: - POST
     
-    func create(item: CreateItemRequest, completionHandler: @escaping (_ success: Bool) -> ()) {
+    func create(item: ItemCreate, completionHandler: @escaping (_ success: Bool) -> ()) {
         let path = "item/create"
         let urlString = baseUrl + path
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: item.toDictionary())
-//        let jsonData = try? JSONEncoder.encode(jsonItem)
-        
-        // create post request
-        let url = URL(string: urlString)!
+        guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)
-        
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        
-        // insert json data to the request
-        request.httpBody = jsonData
+        request.httpBody = try? item.data()
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
@@ -242,23 +235,16 @@ class NetworkManager {
         completionHandler(true)
     }
     
-    func create(employee: CreateEmployeeRequest, completionHandler: @escaping (_ success: Bool) -> ()) {
+    func create(employee: EmployeeCreate, completionHandler: @escaping (_ success: Bool) -> ()) {
         let path = "employee/create"
         let urlString = baseUrl + path
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: employee.toDictionary())
-        //        let jsonData = try? JSONEncoder.encode(jsonItem)
-        
-        // create post request
-        let url = URL(string: urlString)!
+        guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)
-        
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        
-        // insert json data to the request
-        request.httpBody = jsonData
+        request.httpBody = try? employee.data()
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {

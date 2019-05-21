@@ -28,6 +28,7 @@
 		11921FC4228D8346005503F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11921FC2228D8346005503F6 /* Main.storyboard */; };
 		11921FC6228D8349005503F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11921FC5228D8349005503F6 /* Assets.xcassets */; };
 		11921FC9228D8349005503F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11921FC7228D8349005503F6 /* LaunchScreen.storyboard */; };
+		11C43E5022943B990041553E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C43E4F22943B990041553E /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		11921FC5228D8349005503F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11921FC8228D8349005503F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11921FCA228D8349005503F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11C43E4F22943B990041553E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				11921FBC228D8346005503F6 /* AppDelegate.swift */,
+				11C43E4F22943B990041553E /* Extensions.swift */,
 				111EBCEF2292FED500FBB925 /* NetworkManager.swift */,
 				1122D21B228EE19900CE2D84 /* Models */,
 				1122D21C228EE1AB00CE2D84 /* Controllers */,
@@ -282,6 +285,7 @@
 				1122D22F228EE28300CE2D84 /* ProfitViewController.swift in Sources */,
 				11921FBD228D8346005503F6 /* AppDelegate.swift in Sources */,
 				1122D23F228EF8C900CE2D84 /* ExperienceType.swift in Sources */,
+				11C43E5022943B990041553E /* Extensions.swift in Sources */,
 				1122D239228EF00400CE2D84 /* ItemType.swift in Sources */,
 				111EBCF02292FED500FBB925 /* NetworkManager.swift in Sources */,
 				1122D23D228EF84800CE2D84 /* Employee.swift in Sources */,
