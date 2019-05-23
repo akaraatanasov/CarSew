@@ -31,12 +31,6 @@ class ExpensesViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        loadExpenses()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
