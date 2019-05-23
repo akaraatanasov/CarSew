@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol AddEmployeeDelegate {
+    func didCreateEmployee()
+}
+
 class AddEmployeeViewController: UIViewController {
+    
+    var delegate: AddEmployeeDelegate?
     
     // MARK: - Vars
     
@@ -51,9 +57,23 @@ class AddEmployeeViewController: UIViewController {
         // show loading indicator
         NetworkManager.sharedInstance.loadEmployeeProperties { [weak self] experienceTypes in
             self?.experienceTypes = experienceTypes
+            
             DispatchQueue.main.async {
                 // hide loading indicator
                 self?.pickerView?.reloadAllComponents()
+            }
+        }
+    }
+    
+    private func create(employee employeeToCreate: EmployeeCreate) {
+        NetworkManager.sharedInstance.create(object: employeeToCreate) { [weak self] success in
+            DispatchQueue.main.async {
+                if success {
+                    self?.delegate?.didCreateEmployee()
+                    self?.dismiss(animated: true)
+                } else {
+                    self?.presentErrorAlert()
+                }
             }
         }
     }
@@ -64,13 +84,10 @@ class AddEmployeeViewController: UIViewController {
         guard let salaryString = salaryTextField.text else { return nil }
         
         let experience = experienceTypes.first { $0.title == experienceName }
-        let salary = Double(salaryString)
+        let optionalSalary = Double(salaryString)
         
-        if let experienceId = experience?.id, let salary = salary {
-            return EmployeeCreate(name: name, salary: salary, experienceId: experienceId)
-        } else {
-            return nil
-        }
+        guard let experienceId = experience?.id, let salary = optionalSalary else { return nil }
+        return EmployeeCreate(name: name, salary: salary, experienceId: experienceId)
     }
     
     private func presentErrorAlert() {
@@ -89,18 +106,8 @@ class AddEmployeeViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        if let employeeToSend = getEmployeeFromInput() {
-            NetworkManager.sharedInstance.create(employee: employeeToSend) { [weak self] success in
-                print(success)
-                
-                DispatchQueue.main.async {
-                    if success {
-                        self?.dismiss(animated: true)
-                    } else {
-                        self?.presentErrorAlert()
-                    }
-                }
-            }
+        if let employeeToCreate = getEmployeeFromInput() {
+            create(employee: employeeToCreate)
         }
     }
     

@@ -50,8 +50,8 @@ class EmployeeDetailsViewController: UIViewController {
     private func displayEmployeeDetails() {
         if let employee = employee {
             nameLabel.text = employee.name
-            experienceLabel.text = employee.experience?.title
-            salaryLabel.text = "\(employee.salary ?? 0)"
+            experienceLabel.text = employee.experience.title
+            salaryLabel.text = "\(employee.salary)"
         }
     }
     
@@ -82,8 +82,8 @@ extension EmployeeDetailsViewController: UITableViewDataSource {
         let currentItem = employeeItems[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
-        cell.detailTextLabel?.text = currentItem.type?.title
-        cell.backgroundColor = currentItem.color?.uiColor
+        cell.detailTextLabel?.text = currentItem.type.title
+        cell.backgroundColor = currentItem.color.uiColor
         
         return cell
     }

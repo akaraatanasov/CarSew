@@ -9,7 +9,7 @@
 import Foundation
 
 class ExperienceType: Codable {
-    var id: Int?
-    var title: String?
-    var itemsPerHour: Int?
+    var id: Int
+    var title: String
+    var itemsPerHour: Int
 }

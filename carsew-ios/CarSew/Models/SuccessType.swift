@@ -9,5 +9,5 @@
 import Foundation
 
 class SuccessType: Codable {
-    var success: Bool?
+    var success: Bool
 }

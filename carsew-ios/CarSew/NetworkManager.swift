@@ -63,10 +63,8 @@ class NetworkManager {
         DispatchQueue.global(qos: .userInitiated).async {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
-                    if let jsonSuccess = try? JSONDecoder().decode(SuccessType.self, from: data) {
-                        if let success = jsonSuccess.success {
-                            completionHandler(success)
-                        }
+                    if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
+                        completionHandler(json.success)
                     }
                     return
                 }
@@ -83,10 +81,8 @@ class NetworkManager {
         DispatchQueue.global(qos: .userInitiated).async {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
-                    if let jsonSuccess = try? JSONDecoder().decode(SuccessType.self, from: data) {
-                        if let success = jsonSuccess.success {
-                            completionHandler(success)
-                        }
+                    if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
+                        completionHandler(json.success)
                     }
                     return
                 }
@@ -206,8 +202,8 @@ class NetworkManager {
     
     // MARK: - POST
     
-    func create(item: ItemCreate, completionHandler: @escaping (_ success: Bool) -> ()) {
-        let path = "item/create"
+    func create<T: Encodable>(object: T, completionHandler: @escaping (_ success: Bool) -> ()) {
+        let path = object is ItemCreate ? "item/create" : "employee/create"
         let urlString = baseUrl + path
         
         guard let url = URL(string: urlString) else { return }
@@ -215,36 +211,7 @@ class NetworkManager {
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        request.httpBody = try? item.data()
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                completionHandler(false)
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                completionHandler(false)
-                print(responseJSON)
-            }
-        }
-        
-        task.resume()
-        completionHandler(true)
-    }
-    
-    func create(employee: EmployeeCreate, completionHandler: @escaping (_ success: Bool) -> ()) {
-        let path = "employee/create"
-        let urlString = baseUrl + path
-        
-        guard let url = URL(string: urlString) else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        request.httpBody = try? employee.data()
+        request.httpBody = try? object.data()
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {

@@ -21,25 +21,24 @@ class ItemsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadItems()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-         loadItems()
+        loadItems()
     }
     
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+        case "showAddItem":
+            if let addItemViewController = segue.destination as? AddItemViewController {
+                addItemViewController.delegate = self
+            }
         case "showItemDetails":
             if let itemDetailsViewController = segue.destination as? ItemDetailsViewController {
+                itemDetailsViewController.delegate = self
                 itemDetailsViewController.item = selectedItem
             }
         default: break
@@ -74,8 +73,8 @@ extension ItemsViewController: UITableViewDataSource {
         let currentItem = items[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
-        cell.detailTextLabel?.text = currentItem.type?.title
-        cell.backgroundColor = currentItem.color?.uiColor
+        cell.detailTextLabel?.text = currentItem.type.title
+        cell.backgroundColor = currentItem.color.uiColor
         
         return cell
     }
@@ -88,5 +87,25 @@ extension ItemsViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedItem = items[indexPath.row]
         performSegue(withIdentifier: "showItemDetails", sender: self)
+    }
+}
+
+// MARK: - Add Item Delegate
+
+extension ItemsViewController: AddItemDelegate {
+    func didCreateItem() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            sleep(1)
+            self?.loadItems()
+        }
+    }
+}
+
+// MARK: - Item Details Delegate
+
+extension ItemsViewController: ItemDetailsDelegate {
+    func didProduceItem(with id: Int) {
+        items.removeAll { $0.id == id }
+        tableView.reloadData()
     }
 }

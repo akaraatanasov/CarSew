@@ -9,25 +9,25 @@
 import Foundation
 
 class Item: Codable {
-    var id: Int?
-    var name: String?
-    var price: Double?
-    var type: ItemType?
-    var color: ColorType?
+    var id: Int
+    var name: String
+    var price: Double
+    var type: ItemType
+    var color: ColorType
     var employee: Employee?
-    var isProduced: Bool?
-    var isSold: Bool?
+    var isProduced: Bool
+    var isSold: Bool
     
     var cost: Double {
-        let materialsPrice = type!.materialsPrice!
-        let employeeSalary = employee!.salary!
-        let itemsPerHour = employee!.experience!.itemsPerHour!
+        let materialsPrice = type.materialsPrice
+        let employeeSalary = employee?.salary
+        let itemsPerHour = employee?.experience.itemsPerHour
 
-        return (materialsPrice + employeeSalary / Double(itemsPerHour)).rounded(toPlaces: 2)
+        return (materialsPrice + employeeSalary! / Double(itemsPerHour!)).rounded(toPlaces: 2)
     }
 
     var profit: Double {
-        return (price! - cost).rounded(toPlaces: 2)
+        return (price - cost).rounded(toPlaces: 2)
     }
 }
 
@@ -48,7 +48,7 @@ class ItemCreate: Codable {
 }
 
 class ItemProperties: Codable {
-    var colors: [ColorType]?
-    var types: [ItemType]?
-    var employees: [Employee]?
+    var colors: [ColorType]
+    var types: [ItemType]
+    var employees: [Employee]
 }

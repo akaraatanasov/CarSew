@@ -88,9 +88,9 @@
 		1122D21B228EE19900CE2D84 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				111EBCF1229319EF00FBB925 /* SuccessType.swift */,
 				1122D234228EE30700CE2D84 /* Items */,
 				1122D235228EE31300CE2D84 /* Employees */,
-				111EBCF1229319EF00FBB925 /* SuccessType.swift */,
 				111EBCF32293457600FBB925 /* Accounting */,
 			);
 			path = Models;

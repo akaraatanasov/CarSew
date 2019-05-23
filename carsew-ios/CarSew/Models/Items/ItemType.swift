@@ -9,7 +9,7 @@
 import Foundation
 
 class ItemType: Codable {
-    var id: Int?
-    var title: String?
-    var materialsPrice: Double?
+    var id: Int
+    var title: String
+    var materialsPrice: Double
 }

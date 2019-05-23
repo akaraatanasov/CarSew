@@ -48,14 +48,12 @@ class IncomeViewController: UIViewController {
     private func loadIncome() {
         // show loading indicator
         NetworkManager.sharedInstance.loadIncome { [weak self] income in
-            if let overallIncome = income.overall, let incomeItems = income.items {
-                self?.overallIncome = overallIncome
-                self?.income = incomeItems
-                
-                DispatchQueue.main.async { [weak self] in
-                    // hide loading indicator
-                    self?.tableView.reloadData()
-                }
+            self?.overallIncome = income.overall
+            self?.income = income.items
+            
+            DispatchQueue.main.async { [weak self] in
+                // hide loading indicator
+                self?.tableView.reloadData()
             }
         }
     }
@@ -74,7 +72,7 @@ extension IncomeViewController: UITableViewDataSource {
         let currentItem = income[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
-        cell.detailTextLabel?.text = "+\(currentItem.price!)" // TODO: - Make this green
+        cell.detailTextLabel?.text = "+\(currentItem.price)" // TODO: - Make this green
         
         return cell
     }

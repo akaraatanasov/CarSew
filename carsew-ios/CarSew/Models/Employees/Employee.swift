@@ -9,10 +9,10 @@
 import Foundation
 
 class Employee: Codable {
-    var id: Int?
-    var name: String?
-    var salary: Double?
-    var experience: ExperienceType?
+    var id: Int
+    var name: String
+    var salary: Double
+    var experience: ExperienceType
     var itemList: [Item]?
 }
 

@@ -48,14 +48,12 @@ class ProfitViewController: UIViewController {
     private func loadProfit() {
         // show loading indicator
         NetworkManager.sharedInstance.loadProfit { [weak self] profit in
-            if let overallProfit = profit.overall, let profitItems = profit.items {
-                self?.overallProfit = overallProfit
-                self?.profit = profitItems
-                
-                DispatchQueue.main.async { [weak self] in
-                    // hide loading indicator
-                    self?.tableView.reloadData()
-                }
+            self?.overallProfit = profit.overall
+            self?.profit = profit.items
+            
+            DispatchQueue.main.async { [weak self] in
+                // hide loading indicator
+                self?.tableView.reloadData()
             }
         }
     }

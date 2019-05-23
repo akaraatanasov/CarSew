@@ -57,14 +57,12 @@ class ExpensesViewController: UIViewController {
     private func loadExpenses() {
         // show loading indicator
         NetworkManager.sharedInstance.loadExpenses { [weak self] expenses in
-            if let overallExpenses = expenses.overall, let expenseItems = expenses.items {
-                self?.overallExpenses = overallExpenses
-                self?.expenses = expenseItems
-                
-                DispatchQueue.main.async { [weak self] in
-                    // hide loading indicator
-                    self?.tableView.reloadData()
-                }
+            self?.overallExpenses = expenses.overall
+            self?.expenses = expenses.items
+            
+            DispatchQueue.main.async { [weak self] in
+                // hide loading indicator
+                self?.tableView.reloadData()
             }
         }
     }
@@ -118,7 +116,7 @@ extension ExpensesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let selectedItemId = expenses[indexPath.row].id!
+        let selectedItemId = expenses[indexPath.row].id
         sellItem(with: selectedItemId)
     }
 }

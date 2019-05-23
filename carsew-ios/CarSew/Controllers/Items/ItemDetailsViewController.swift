@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol ItemDetailsDelegate {
+    func didProduceItem(with id: Int)
+}
+
 class ItemDetailsViewController: UIViewController {
+    
+    var delegate: ItemDetailsDelegate?
     
     // MARK: - Vars
     
@@ -39,10 +45,10 @@ class ItemDetailsViewController: UIViewController {
     private func displayItemDetails() {
         if let item = item {
             nameLabel.text = item.name
-            typeLabel.text = item.type?.title
+            typeLabel.text = item.type.title
             employeeLabel.text = item.employee?.name
-            priceLabel.text = "\(item.price!.rounded(toPlaces: 2))"
-            colorView.backgroundColor = item.color!.uiColor
+            priceLabel.text = "\(item.price.rounded(toPlaces: 2))"
+            colorView.backgroundColor = item.color.uiColor
         }
     }
     
@@ -69,6 +75,7 @@ class ItemDetailsViewController: UIViewController {
         NetworkManager.sharedInstance.produceItem(with: itemId) { [weak self] success in
             DispatchQueue.main.async {
                 if success {
+                    self?.delegate?.didProduceItem(with: itemId)
                     self?.navigationController?.popViewController(animated: true)
                 } else {
                     self?.presentErrorAlert()

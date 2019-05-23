@@ -9,6 +9,6 @@
 import Foundation
 
 class Accounting: Codable {
-    var overall: Double?
-    var items: [Item]?
+    var overall: Double
+    var items: [Item]
 }

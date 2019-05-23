@@ -28,16 +28,14 @@ class EmployeesViewController: UIViewController {
         loadEmployees()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        loadEmployees()
-    }
-    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+        case "showAddEmployee":
+            if let addEmployeeViewController = segue.destination as? AddEmployeeViewController {
+                addEmployeeViewController.delegate = self
+            }
         case "showEmployeeDetails":
             if let employeeDetailsViewController = segue.destination as? EmployeeDetailsViewController {
                 employeeDetailsViewController.employee = selectedEmployee
@@ -74,7 +72,7 @@ extension EmployeesViewController: UITableViewDataSource {
         let currentEmployee = employees[indexPath.row]
         
         cell.textLabel?.text = currentEmployee.name
-        cell.detailTextLabel?.text = currentEmployee.experience?.title
+        cell.detailTextLabel?.text = currentEmployee.experience.title
         
         return cell
     }
@@ -87,5 +85,16 @@ extension EmployeesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedEmployee = employees[indexPath.row]
         performSegue(withIdentifier: "showEmployeeDetails", sender: self)
+    }
+}
+
+// MARK: - Add Employee Delegate
+
+extension EmployeesViewController: AddEmployeeDelegate {
+    func didCreateEmployee() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            sleep(1)
+            self?.loadEmployees()
+        }
     }
 }

@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol AddItemDelegate {
+    func didCreateItem()
+}
+
 class AddItemViewController: UIViewController {
+    
+    var delegate: AddItemDelegate?
     
     // MARK: - Vars
     
@@ -58,18 +64,26 @@ class AddItemViewController: UIViewController {
     private func getAllItemTypes() {
         // show loading indicator
         NetworkManager.sharedInstance.loadItemProperties { [weak self] createItems in
-            if let itemTypes = createItems.types, let colors = createItems.colors, let employees = createItems.employees {
-                self?.itemTypes = itemTypes
-                self?.colors = colors
-                self?.employees = employees
-                
-                DispatchQueue.main.async {
-                    // hide loading indicator
-                    self?.pickerView?.reloadAllComponents()
-                }
-            } else {
+            self?.itemTypes = createItems.types
+            self?.colors = createItems.colors
+            self?.employees = createItems.employees
+            
+            DispatchQueue.main.async {
                 // hide loading indicator
-                // show error
+                self?.pickerView?.reloadAllComponents()
+            }
+        }
+    }
+    
+    private func create(item itemToCreate: ItemCreate) {
+        NetworkManager.sharedInstance.create(object: itemToCreate) { [weak self] success in
+            DispatchQueue.main.async {
+                if success {
+                    self?.delegate?.didCreateItem()
+                    self?.dismiss(animated: true)
+                } else {
+                    self?.presentErrorAlert()
+                }
             }
         }
     }
@@ -84,13 +98,10 @@ class AddItemViewController: UIViewController {
         let type = itemTypes.first { $0.title == typeName }
         let color = colors.first { $0.name == colorName }
         let employee = employees.first { $0.name == employeeName }
-        let price = Double(priceString)
+        let optionalPrice = Double(priceString)
         
-        if let typeId = type?.id, let colorId = color?.id, let employeeId = employee?.id, let price = price {
-            return ItemCreate(name: name, typeId: typeId, colorId: colorId, employeeId: employeeId, price: price)
-        } else {
-            return nil
-        }
+        guard let typeId = type?.id, let colorId = color?.id, let employeeId = employee?.id, let price = optionalPrice else { return nil }
+        return ItemCreate(name: name, typeId: typeId, colorId: colorId, employeeId: employeeId, price: price)
     }
     
     private func presentErrorAlert() {
@@ -102,15 +113,6 @@ class AddItemViewController: UIViewController {
         present(alertController, animated: true)
     }
     
-    private func presentPriceErrorAlert() {
-        let alertController = UIAlertController(title: "Error",
-                                                message: "Please enter the price of the item!",
-                                                preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
-    }
-    
     // MARK: - IBActions
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
@@ -118,18 +120,8 @@ class AddItemViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        if let itemToSend = getItemFromInput() {
-            NetworkManager.sharedInstance.create(item: itemToSend) { [weak self] success in
-                print(success)
-                
-                DispatchQueue.main.async {
-                    if success {
-                        self?.dismiss(animated: true)
-                    } else {
-                        self?.presentErrorAlert()
-                    }
-                }
-            }
+        if let itemToCreate = getItemFromInput() {
+            create(item: itemToCreate)
         }
     }
     
