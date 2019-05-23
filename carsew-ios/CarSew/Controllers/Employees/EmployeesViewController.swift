@@ -47,15 +47,19 @@ class EmployeesViewController: UIViewController {
     // MARK: - Private
     
     private func loadEmployees() {
-        NetworkManager.sharedInstance.loadEmployees { [weak self] employees in
-            self?.employees = employees
-            
-            DispatchQueue.main.async { [weak self] in
-                // hide loading indicator
-                self?.tableView.reloadData()
+        // show loading indicator
+        NetworkManager.sharedInstance.loadEmployees { [weak self] employees, error in
+            if let employees = employees {
+                self?.employees = employees
+                
+                DispatchQueue.main.async { [weak self] in
+                    // hide loading indicator
+                    self?.tableView.reloadData()
+                }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
-        }
-        
+        } 
     }
     
 }

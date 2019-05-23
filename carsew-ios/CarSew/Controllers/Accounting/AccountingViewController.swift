@@ -78,51 +78,67 @@ class AccountingViewController: UIViewController {
     
     private func loadExpenses() {
         // show loading indicator
-        NetworkManager.sharedInstance.loadExpenses { [weak self] expenses in
-            self?.overallAccounting = expenses.overall
-            self?.accountingItems = expenses.items
-            
-            DispatchQueue.main.async { [weak self] in
-                // hide loading indicator
-                self?.tableView.reloadData()
+        NetworkManager.sharedInstance.loadExpenses { [weak self] expenses, error in
+            if let expenses = expenses {
+                self?.overallAccounting = expenses.overall
+                self?.accountingItems = expenses.items
+                
+                DispatchQueue.main.async { [weak self] in
+                    // hide loading indicator
+                    self?.tableView.reloadData()
+                }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
     
     private func loadIncome() {
         // show loading indicator
-        NetworkManager.sharedInstance.loadIncome { [weak self] income in
-            self?.overallAccounting = income.overall
-            self?.accountingItems = income.items
-            
-            DispatchQueue.main.async { [weak self] in
-                // hide loading indicator
-                self?.tableView.reloadData()
+        NetworkManager.sharedInstance.loadIncome { [weak self] income, error in
+            if let income = income {
+                self?.overallAccounting = income.overall
+                self?.accountingItems = income.items
+                
+                DispatchQueue.main.async { [weak self] in
+                    // hide loading indicator
+                    self?.tableView.reloadData()
+                }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
     
     private func loadProfit() {
         // show loading indicator
-        NetworkManager.sharedInstance.loadProfit { [weak self] profit in
-            self?.overallAccounting = profit.overall
-            self?.accountingItems = profit.items
-            
-            DispatchQueue.main.async { [weak self] in
-                // hide loading indicator
-                self?.tableView.reloadData()
+        NetworkManager.sharedInstance.loadProfit { [weak self] profit, error in
+            if let profit = profit {
+                self?.overallAccounting = profit.overall
+                self?.accountingItems = profit.items
+                
+                DispatchQueue.main.async { [weak self] in
+                    // hide loading indicator
+                    self?.tableView.reloadData()
+                }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
     
     private func sendItemSellRequest(with itemId: Int) {
-        NetworkManager.sharedInstance.sellItem(with: itemId) { [weak self] success in
-            if success {
-                self?.loadExpenses()
-            } else {
-                DispatchQueue.main.async {
-                    self?.presentErrorAlert()
+        NetworkManager.sharedInstance.sellItem(with: itemId) { [weak self] success, error in
+            if let success = success {
+                if success {
+                    self?.loadExpenses()
+                } else {
+                    DispatchQueue.main.async {
+                        self?.presentErrorAlert()
+                    }
                 }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }

@@ -58,12 +58,14 @@ class EmployeeDetailsViewController: UIViewController {
     private func loadEmployeeDetails() {
         // TODO: - Request employee details (mainly items) by id (GET)
         guard let employeeId = employee?.id else { return }
-        NetworkManager.sharedInstance.loadEmployeeDetails(with: employeeId) { [weak self] employee in
-            if let employeeItems = employee.itemList {
+        NetworkManager.sharedInstance.loadEmployeeDetails(with: employeeId) { [weak self] employee, error in
+            if let employeeItems = employee?.itemList {
                 self?.employeeItems = employeeItems
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }

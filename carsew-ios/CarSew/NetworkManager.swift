@@ -20,7 +20,7 @@ class NetworkManager {
     
     // MARK: - GET
     
-    func loadItems(completionHandler: @escaping (_ items: [Item]) -> ()) {
+    func loadItems(completionHandler: @escaping (_ items: [Item]?, _ error: Error?) -> ()) {
         let path = "item/list"
         let urlString = baseUrl + path
         
@@ -28,17 +28,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonItems = try? JSONDecoder().decode([Item].self, from: data) {
-                        completionHandler(jsonItems)
+                        completionHandler(jsonItems, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Listing items was unsuccessful"))
         }
     }
     
-    func loadItemProperties(completionHandler: @escaping (_ types: ItemProperties) -> ()) {
+    func loadItemProperties(completionHandler: @escaping (_ types: ItemProperties?, _ error: Error?) -> ()) {
         let path = "item/create"
         let urlString = baseUrl + path
         
@@ -46,17 +46,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonCreateItemResponse = try? JSONDecoder().decode(ItemProperties.self, from: data) {
-                        completionHandler(jsonCreateItemResponse)
+                        completionHandler(jsonCreateItemResponse, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Listing item create types was unsuccessful"))
         }
     }
     
-    func produceItem(with id: Int, completionHandler: @escaping (_ success: Bool) -> ()) {
+    func produceItem(with id: Int, completionHandler: @escaping (_ success: Bool?, _ error: Error?) -> ()) {
         let path = "item/produce/\(id)"
         let urlString = baseUrl + path
         
@@ -64,17 +64,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
-                        completionHandler(json.success)
+                        completionHandler(json.success, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Producing item was unsuccessful"))
         }
     }
     
-    func sellItem(with id: Int, completionHandler: @escaping (_ success: Bool) -> ()) {
+    func sellItem(with id: Int, completionHandler: @escaping (_ success: Bool?, _ error: Error?) -> ()) {
         let path = "item/sell/\(id)"
         let urlString = baseUrl + path
         
@@ -82,17 +82,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
-                        completionHandler(json.success)
+                        completionHandler(json.success, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Producing item was unsuccessful"))
         }
     }
     
-    func loadEmployees(completionHandler: @escaping (_ employees: [Employee]) -> ()) {
+    func loadEmployees(completionHandler: @escaping (_ employees: [Employee]?, _ error: Error?) -> ()) {
         let path = "employee/list"
         let urlString = baseUrl + path
         
@@ -100,17 +100,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonEmployees = try? JSONDecoder().decode([Employee].self, from: data) {
-                        completionHandler(jsonEmployees)
+                        completionHandler(jsonEmployees, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Listing employees was unsuccessful"))
         }
     }
     
-    func loadEmployeeProperties(completionHandler: @escaping (_ experienceTypes: [ExperienceType]) -> ()) {
+    func loadEmployeeProperties(completionHandler: @escaping (_ experienceTypes: [ExperienceType]?, _ error: Error?) -> ()) {
         let path = "employee/create"
         let urlString = baseUrl + path
         
@@ -118,17 +118,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonCreateEmployeeResponse = try? JSONDecoder().decode([ExperienceType].self, from: data) {
-                        completionHandler(jsonCreateEmployeeResponse)
+                        completionHandler(jsonCreateEmployeeResponse, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Listing employee create types was unsuccessful"))
         }
     }
     
-    func loadEmployeeDetails(with employeeId: Int, completionHandler: @escaping (_ employee: Employee) -> ()) {
+    func loadEmployeeDetails(with employeeId: Int, completionHandler: @escaping (_ employee: Employee?, _ error: Error?) -> ()) {
         let path = "employee/\(employeeId)"
         let urlString = baseUrl + path
         
@@ -136,17 +136,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonEmployee = try? JSONDecoder().decode(Employee.self, from: data) {
-                        completionHandler(jsonEmployee)
+                        completionHandler(jsonEmployee, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Listing employee details was unsuccessful"))
         }
     }
     
-    func loadExpenses(completionHandler: @escaping (_ expenses: Accounting) -> ()) {
+    func loadExpenses(completionHandler: @escaping (_ expenses: Accounting?, _ error: Error?) -> ()) {
         let path = "expense/list"
         let urlString = baseUrl + path
         
@@ -154,17 +154,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonExpenses = try? JSONDecoder().decode(Accounting.self, from: data) {
-                        completionHandler(jsonExpenses)
+                        completionHandler(jsonExpenses, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Listing expenses was unsuccessful"))
         }
     }
     
-    func loadIncome(completionHandler: @escaping (_ income: Accounting) -> ()) {
+    func loadIncome(completionHandler: @escaping (_ income: Accounting?, _ error: Error?) -> ()) {
         let path = "income/list"
         let urlString = baseUrl + path
         
@@ -172,17 +172,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonIncome = try? JSONDecoder().decode(Accounting.self, from: data) {
-                        completionHandler(jsonIncome)
+                        completionHandler(jsonIncome, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Listing income was unsuccessful"))
         }
     }
     
-    func loadProfit(completionHandler: @escaping (_ profit: Accounting) -> ()) {
+    func loadProfit(completionHandler: @escaping (_ profit: Accounting?, _ error: Error?) -> ()) {
         let path = "profit/list"
         let urlString = baseUrl + path
         
@@ -190,13 +190,13 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonProfit = try? JSONDecoder().decode(Accounting.self, from: data) {
-                        completionHandler(jsonProfit)
+                        completionHandler(jsonProfit, nil)
                     }
                     return
                 }
             }
             
-            // show error message
+            completionHandler(nil, ErrorType(description: "Listing profit was unsuccessful"))
         }
     }
     

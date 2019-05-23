@@ -27,6 +27,8 @@
 		11921FC9228D8349005503F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11921FC7228D8349005503F6 /* LaunchScreen.storyboard */; };
 		11C43E5022943B990041553E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C43E4F22943B990041553E /* Extensions.swift */; };
 		11C43E662296C4E20041553E /* AccountingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C43E652296C4E20041553E /* AccountingViewController.swift */; };
+		11C43E682296CE3F0041553E /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C43E672296CE3F0041553E /* ErrorType.swift */; };
+		11C43E6A2296D0110041553E /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C43E692296D0110041553E /* AlertPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		11921FCA228D8349005503F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11C43E4F22943B990041553E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		11C43E652296C4E20041553E /* AccountingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingViewController.swift; sourceTree = "<group>"; };
+		11C43E672296CE3F0041553E /* ErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
+		11C43E692296D0110041553E /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				111EBCF1229319EF00FBB925 /* SuccessType.swift */,
+				11C43E672296CE3F0041553E /* ErrorType.swift */,
 				1122D234228EE30700CE2D84 /* Items */,
 				1122D235228EE31300CE2D84 /* Employees */,
 				111EBCF32293457600FBB925 /* Accounting */,
@@ -162,6 +167,7 @@
 			children = (
 				11921FBC228D8346005503F6 /* AppDelegate.swift */,
 				11C43E4F22943B990041553E /* Extensions.swift */,
+				11C43E692296D0110041553E /* AlertPresenter.swift */,
 				111EBCEF2292FED500FBB925 /* NetworkManager.swift */,
 				1122D21B228EE19900CE2D84 /* Models */,
 				1122D21C228EE1AB00CE2D84 /* Controllers */,
@@ -267,6 +273,7 @@
 				1122D239228EF00400CE2D84 /* ItemType.swift in Sources */,
 				111EBCF02292FED500FBB925 /* NetworkManager.swift in Sources */,
 				1122D23D228EF84800CE2D84 /* Employee.swift in Sources */,
+				11C43E682296CE3F0041553E /* ErrorType.swift in Sources */,
 				111EBCF52293459200FBB925 /* Accounting.swift in Sources */,
 				1122D223228EE22900CE2D84 /* ItemsViewController.swift in Sources */,
 				1122D23B228EF4F500CE2D84 /* ColorType.swift in Sources */,
@@ -274,6 +281,7 @@
 				1122D233228EE2AA00CE2D84 /* AddEmployeeViewController.swift in Sources */,
 				1122D227228EE24B00CE2D84 /* EmployeesViewController.swift in Sources */,
 				111EBCF2229319EF00FBB925 /* SuccessType.swift in Sources */,
+				11C43E6A2296D0110041553E /* AlertPresenter.swift in Sources */,
 				1122D237228EEFD000CE2D84 /* Item.swift in Sources */,
 				1122D231228EE29E00CE2D84 /* AddItemViewController.swift in Sources */,
 				1122D225228EE23900CE2D84 /* ItemDetailsViewController.swift in Sources */,

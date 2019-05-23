@@ -63,14 +63,18 @@ class AddItemViewController: UIViewController {
     
     private func getAllItemTypes() {
         // show loading indicator
-        NetworkManager.sharedInstance.loadItemProperties { [weak self] createItems in
-            self?.itemTypes = createItems.types
-            self?.colors = createItems.colors
-            self?.employees = createItems.employees
-            
-            DispatchQueue.main.async {
-                // hide loading indicator
-                self?.pickerView?.reloadAllComponents()
+        NetworkManager.sharedInstance.loadItemProperties { [weak self] createItems, error in
+            if let createItems = createItems {
+                self?.itemTypes = createItems.types
+                self?.colors = createItems.colors
+                self?.employees = createItems.employees
+                
+                DispatchQueue.main.async {
+                    // hide loading indicator
+                    self?.pickerView?.reloadAllComponents()
+                }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }

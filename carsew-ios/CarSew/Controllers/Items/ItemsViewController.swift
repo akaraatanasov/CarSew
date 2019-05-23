@@ -49,13 +49,18 @@ class ItemsViewController: UIViewController {
     
     private func loadItems() {
         // show loading indicator
-        NetworkManager.sharedInstance.loadItems { [weak self] items in
-            self?.items = items
-            
-            DispatchQueue.main.async {
-                // hide loading indicator
-                self?.tableView.reloadData()
+        NetworkManager.sharedInstance.loadItems { [weak self] items, error in
+            if let items = items {
+                self?.items = items
+                
+                DispatchQueue.main.async {
+                    // hide loading indicator
+                    self?.tableView.reloadData()
+                }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
+            
         }
     }
 

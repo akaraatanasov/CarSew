@@ -55,12 +55,16 @@ class AddEmployeeViewController: UIViewController {
     
     private func getAllЕxperienceTypes() {
         // show loading indicator
-        NetworkManager.sharedInstance.loadEmployeeProperties { [weak self] experienceTypes in
-            self?.experienceTypes = experienceTypes
-            
-            DispatchQueue.main.async {
-                // hide loading indicator
-                self?.pickerView?.reloadAllComponents()
+        NetworkManager.sharedInstance.loadEmployeeProperties { [weak self] experienceTypes, error in
+            if let experienceTypes = experienceTypes {
+                self?.experienceTypes = experienceTypes
+                
+                DispatchQueue.main.async {
+                    // hide loading indicator
+                    self?.pickerView?.reloadAllComponents()
+                }
+            } else if let error = error, let strongSelf = self {
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
