@@ -137,7 +137,7 @@ extension AccountingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "expensesCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "accountingCell", for: indexPath)
         let currentItem = accountingItems[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
