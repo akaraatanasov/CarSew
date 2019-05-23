@@ -14,9 +14,6 @@
 		1122D225228EE23900CE2D84 /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D224228EE23900CE2D84 /* ItemDetailsViewController.swift */; };
 		1122D227228EE24B00CE2D84 /* EmployeesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D226228EE24B00CE2D84 /* EmployeesViewController.swift */; };
 		1122D229228EE25900CE2D84 /* EmployeeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D228228EE25900CE2D84 /* EmployeeDetailsViewController.swift */; };
-		1122D22B228EE26500CE2D84 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D22A228EE26500CE2D84 /* ExpensesViewController.swift */; };
-		1122D22D228EE26F00CE2D84 /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D22C228EE26F00CE2D84 /* IncomeViewController.swift */; };
-		1122D22F228EE28300CE2D84 /* ProfitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D22E228EE28300CE2D84 /* ProfitViewController.swift */; };
 		1122D231228EE29E00CE2D84 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D230228EE29E00CE2D84 /* AddItemViewController.swift */; };
 		1122D233228EE2AA00CE2D84 /* AddEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D232228EE2AA00CE2D84 /* AddEmployeeViewController.swift */; };
 		1122D237228EEFD000CE2D84 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122D236228EEFD000CE2D84 /* Item.swift */; };
@@ -40,9 +37,6 @@
 		1122D224228EE23900CE2D84 /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 		1122D226228EE24B00CE2D84 /* EmployeesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesViewController.swift; sourceTree = "<group>"; };
 		1122D228228EE25900CE2D84 /* EmployeeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDetailsViewController.swift; sourceTree = "<group>"; };
-		1122D22A228EE26500CE2D84 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
-		1122D22C228EE26F00CE2D84 /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
-		1122D22E228EE28300CE2D84 /* ProfitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitViewController.swift; sourceTree = "<group>"; };
 		1122D230228EE29E00CE2D84 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		1122D232228EE2AA00CE2D84 /* AddEmployeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmployeeViewController.swift; sourceTree = "<group>"; };
 		1122D236228EEFD000CE2D84 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -104,9 +98,6 @@
 				1122D21D228EE1CA00CE2D84 /* Items */,
 				1122D21E228EE1D200CE2D84 /* Employees */,
 				11C43E642296C4C30041553E /* Accounting */,
-				1122D21F228EE1DB00CE2D84 /* Expenses */,
-				1122D220228EE1E400CE2D84 /* Income */,
-				1122D221228EE1ED00CE2D84 /* Profit */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -129,30 +120,6 @@
 				1122D232228EE2AA00CE2D84 /* AddEmployeeViewController.swift */,
 			);
 			path = Employees;
-			sourceTree = "<group>";
-		};
-		1122D21F228EE1DB00CE2D84 /* Expenses */ = {
-			isa = PBXGroup;
-			children = (
-				1122D22A228EE26500CE2D84 /* ExpensesViewController.swift */,
-			);
-			path = Expenses;
-			sourceTree = "<group>";
-		};
-		1122D220228EE1E400CE2D84 /* Income */ = {
-			isa = PBXGroup;
-			children = (
-				1122D22C228EE26F00CE2D84 /* IncomeViewController.swift */,
-			);
-			path = Income;
-			sourceTree = "<group>";
-		};
-		1122D221228EE1ED00CE2D84 /* Profit */ = {
-			isa = PBXGroup;
-			children = (
-				1122D22E228EE28300CE2D84 /* ProfitViewController.swift */,
-			);
-			path = Profit;
 			sourceTree = "<group>";
 		};
 		1122D234228EE30700CE2D84 /* Items */ = {
@@ -293,7 +260,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1122D22F228EE28300CE2D84 /* ProfitViewController.swift in Sources */,
 				11921FBD228D8346005503F6 /* AppDelegate.swift in Sources */,
 				1122D23F228EF8C900CE2D84 /* ExperienceType.swift in Sources */,
 				11C43E662296C4E20041553E /* AccountingViewController.swift in Sources */,
@@ -310,9 +276,7 @@
 				111EBCF2229319EF00FBB925 /* SuccessType.swift in Sources */,
 				1122D237228EEFD000CE2D84 /* Item.swift in Sources */,
 				1122D231228EE29E00CE2D84 /* AddItemViewController.swift in Sources */,
-				1122D22D228EE26F00CE2D84 /* IncomeViewController.swift in Sources */,
 				1122D225228EE23900CE2D84 /* ItemDetailsViewController.swift in Sources */,
-				1122D22B228EE26500CE2D84 /* ExpensesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

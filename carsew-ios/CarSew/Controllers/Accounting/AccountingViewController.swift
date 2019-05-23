@@ -40,13 +40,17 @@ class AccountingViewController: UIViewController {
     // MARK: - Private
     
     private func loadAccounting() {
-        if let selectedTabIndex = tabBarController?.selectedIndex {
-            switch selectedTabIndex {
-            case 2: loadExpenses()
-            case 3: loadIncome()
-            case 4: loadProfit()
-            default: break
-            }
+        switch navigationController?.tabBarItem.tag {
+        case 3:
+            title = "Expenses"
+            loadExpenses()
+        case 4:
+            title = "Income"
+            loadIncome()
+        case 5:
+            title = "Profit"
+            loadProfit()
+        default: break
         }
     }
     
@@ -137,7 +141,7 @@ extension AccountingViewController: UITableViewDataSource {
         let currentItem = accountingItems[indexPath.row]
         
         cell.textLabel?.text = currentItem.name
-        cell.detailTextLabel?.text = "-\(currentItem.cost)"
+        cell.detailTextLabel?.text = "\(currentItem.cost)"
         
         return cell
     }
@@ -149,7 +153,7 @@ extension AccountingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if tabBarController?.selectedIndex == 2 { // expenses
+        if navigationController?.tabBarItem.tag == 3 { // expenses
             let selectedItemId = accountingItems[indexPath.row].id
             sellItem(with: selectedItemId)
         }
