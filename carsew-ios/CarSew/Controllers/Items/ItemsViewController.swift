@@ -100,7 +100,7 @@ extension ItemsViewController: UITableViewDelegate {
 extension ItemsViewController: AddItemDelegate {
     func didCreateItem() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            sleep(1)
+            sleep(1) // backend is too slow to respond, waiting 1 second before listing all items again
             self?.loadItems()
         }
     }

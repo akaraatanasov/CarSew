@@ -54,15 +54,6 @@ class AccountingViewController: UIViewController {
         }
     }
     
-    private func presentErrorAlert() {
-        let alertController = UIAlertController(title: "Error",
-                                                message: "The item you tried to sell has already been sold!",
-                                                preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
-    }
-    
     private func sellItem(with id: Int) {
         let alertController = UIAlertController(title: "Sell this item?",
                                                 message: "Are you sure you want to sell this item?",
@@ -132,12 +123,10 @@ class AccountingViewController: UIViewController {
             if let success = success {
                 if success {
                     self?.loadExpenses()
-                } else {
-                    DispatchQueue.main.async {
-                        self?.presentErrorAlert()
-                    }
+                } else if let strongSelf = self {
+                    AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: "The item you tried to sell has already been sold!")
                 }
-            } else if let error = error, let strongSelf = self {
+            } else if let error = error, let strongSelf = self { // TODO: - ASK Victor if there is any point of calling main.async in showAlert ...
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }

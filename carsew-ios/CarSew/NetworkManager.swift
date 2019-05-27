@@ -29,8 +29,8 @@ class NetworkManager {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonItems = try? JSONDecoder().decode([Item].self, from: data) {
                         completionHandler(jsonItems, nil)
+                        return
                     }
-                    return
                 }
             }
             
@@ -47,8 +47,8 @@ class NetworkManager {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonCreateItemResponse = try? JSONDecoder().decode(ItemProperties.self, from: data) {
                         completionHandler(jsonCreateItemResponse, nil)
+                        return
                     }
-                    return
                 }
             }
             
@@ -65,8 +65,8 @@ class NetworkManager {
                 if let data = try? Data(contentsOf: url) {
                     if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
                         completionHandler(json.success, nil)
+                        return
                     }
-                    return
                 }
             }
             
@@ -83,8 +83,8 @@ class NetworkManager {
                 if let data = try? Data(contentsOf: url) {
                     if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
                         completionHandler(json.success, nil)
+                        return
                     }
-                    return
                 }
             }
             
@@ -101,8 +101,8 @@ class NetworkManager {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonEmployees = try? JSONDecoder().decode([Employee].self, from: data) {
                         completionHandler(jsonEmployees, nil)
+                        return
                     }
-                    return
                 }
             }
             
@@ -119,8 +119,8 @@ class NetworkManager {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonCreateEmployeeResponse = try? JSONDecoder().decode([ExperienceType].self, from: data) {
                         completionHandler(jsonCreateEmployeeResponse, nil)
+                        return
                     }
-                    return
                 }
             }
             
