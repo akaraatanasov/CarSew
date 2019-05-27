@@ -52,10 +52,8 @@ class EmployeesViewController: UIViewController {
             if let employees = employees {
                 self?.employees = employees
                 
-                DispatchQueue.main.async { [weak self] in
-                    // hide loading indicator
-                    self?.tableView.reloadData()
-                }
+                // hide loading indicator
+                self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }

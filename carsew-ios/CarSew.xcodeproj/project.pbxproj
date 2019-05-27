@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11096FC6229C093E0076096E /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11096FC5229C093E0076096E /* LoadingIndicator.swift */; };
 		111EBCF02292FED500FBB925 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EBCEF2292FED500FBB925 /* NetworkManager.swift */; };
 		111EBCF2229319EF00FBB925 /* SuccessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EBCF1229319EF00FBB925 /* SuccessType.swift */; };
 		111EBCF52293459200FBB925 /* Accounting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EBCF42293459200FBB925 /* Accounting.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11096FC5229C093E0076096E /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		111EBCEF2292FED500FBB925 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		111EBCF1229319EF00FBB925 /* SuccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessType.swift; sourceTree = "<group>"; };
 		111EBCF42293459200FBB925 /* Accounting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounting.swift; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11096FC4229C08BD0076096E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				11096FC5229C093E0076096E /* LoadingIndicator.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		111EBCF32293457600FBB925 /* Accounting */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +180,7 @@
 				11C43E692296D0110041553E /* AlertPresenter.swift */,
 				111EBCEF2292FED500FBB925 /* NetworkManager.swift */,
 				1122D21B228EE19900CE2D84 /* Models */,
+				11096FC4229C08BD0076096E /* Views */,
 				1122D21C228EE1AB00CE2D84 /* Controllers */,
 				1122D21A228EE17B00CE2D84 /* Storyboards */,
 				11921FD0228D83AF005503F6 /* Supporting Files */,
@@ -278,6 +289,7 @@
 				1122D223228EE22900CE2D84 /* ItemsViewController.swift in Sources */,
 				1122D23B228EF4F500CE2D84 /* ColorType.swift in Sources */,
 				1122D229228EE25900CE2D84 /* EmployeeDetailsViewController.swift in Sources */,
+				11096FC6229C093E0076096E /* LoadingIndicator.swift in Sources */,
 				1122D233228EE2AA00CE2D84 /* AddEmployeeViewController.swift in Sources */,
 				1122D227228EE24B00CE2D84 /* EmployeesViewController.swift in Sources */,
 				111EBCF2229319EF00FBB925 /* SuccessType.swift in Sources */,

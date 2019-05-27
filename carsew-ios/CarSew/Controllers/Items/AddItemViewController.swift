@@ -69,10 +69,8 @@ class AddItemViewController: UIViewController {
                 self?.colors = createItems.colors
                 self?.employees = createItems.employees
                 
-                DispatchQueue.main.async {
-                    // hide loading indicator
-                    self?.pickerView?.reloadAllComponents()
-                }
+                // hide loading indicator
+                self?.pickerView?.reloadAllComponents()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }

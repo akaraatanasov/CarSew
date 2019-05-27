@@ -59,10 +59,8 @@ class AddEmployeeViewController: UIViewController {
             if let experienceTypes = experienceTypes {
                 self?.experienceTypes = experienceTypes
                 
-                DispatchQueue.main.async {
-                    // hide loading indicator
-                    self?.pickerView?.reloadAllComponents()
-                }
+                // hide loading indicator
+                self?.pickerView?.reloadAllComponents()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
@@ -71,13 +69,11 @@ class AddEmployeeViewController: UIViewController {
     
     private func create(employee employeeToCreate: EmployeeCreate) {
         NetworkManager.sharedInstance.create(object: employeeToCreate) { [weak self] success in
-            DispatchQueue.main.async {
-                if success {
-                    self?.delegate?.didCreateEmployee()
-                    self?.dismiss(animated: true)
-                } else {
-                    self?.presentErrorAlert()
-                }
+            if success {
+                self?.delegate?.didCreateEmployee()
+                self?.dismiss(animated: true)
+            } else {
+                self?.presentErrorAlert()
             }
         }
     }

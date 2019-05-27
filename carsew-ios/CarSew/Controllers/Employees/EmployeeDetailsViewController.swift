@@ -61,9 +61,9 @@ class EmployeeDetailsViewController: UIViewController {
         NetworkManager.sharedInstance.loadEmployeeDetails(with: employeeId) { [weak self] employee, error in
             if let employeeItems = employee?.itemList {
                 self?.employeeItems = employeeItems
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
+                
+                // hide loading indicator
+                self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }

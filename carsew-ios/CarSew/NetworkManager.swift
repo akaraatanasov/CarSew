@@ -28,13 +28,18 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonItems = try? JSONDecoder().decode([Item].self, from: data) {
-                        completionHandler(jsonItems, nil)
+                        sleep(5)
+                        DispatchQueue.main.async {
+                            completionHandler(jsonItems, nil)
+                        }
                         return
                     }
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Listing items was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Listing items was unsuccessful"))
+            }
         }
     }
     
@@ -46,13 +51,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonCreateItemResponse = try? JSONDecoder().decode(ItemProperties.self, from: data) {
-                        completionHandler(jsonCreateItemResponse, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(jsonCreateItemResponse, nil)
+                        }
                         return
                     }
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Listing item create types was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Listing item create types was unsuccessful"))
+            }
         }
     }
     
@@ -64,13 +73,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
-                        completionHandler(json.success, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(json.success, nil)
+                        }
                         return
                     }
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Producing item was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Producing item was unsuccessful"))
+            }
         }
     }
     
@@ -82,13 +95,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
-                        completionHandler(json.success, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(json.success, nil)
+                        }
                         return
                     }
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Producing item was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Producing item was unsuccessful"))
+            }
         }
     }
     
@@ -100,13 +117,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonEmployees = try? JSONDecoder().decode([Employee].self, from: data) {
-                        completionHandler(jsonEmployees, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(jsonEmployees, nil)
+                        }
                         return
                     }
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Listing employees was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Listing employees was unsuccessful"))
+            }
         }
     }
     
@@ -118,13 +139,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonCreateEmployeeResponse = try? JSONDecoder().decode([ExperienceType].self, from: data) {
-                        completionHandler(jsonCreateEmployeeResponse, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(jsonCreateEmployeeResponse, nil)
+                        }
                         return
                     }
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Listing employee create types was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Listing employee create types was unsuccessful"))
+            }
         }
     }
     
@@ -136,13 +161,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonEmployee = try? JSONDecoder().decode(Employee.self, from: data) {
-                        completionHandler(jsonEmployee, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(jsonEmployee, nil)
+                        }
+                        return
                     }
-                    return
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Listing employee details was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Listing employee details was unsuccessful"))
+            }
         }
     }
     
@@ -154,13 +183,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonExpenses = try? JSONDecoder().decode(Accounting.self, from: data) {
-                        completionHandler(jsonExpenses, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(jsonExpenses, nil)
+                        }
                     }
                     return
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Listing expenses was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Listing expenses was unsuccessful"))
+            }
         }
     }
     
@@ -172,13 +205,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonIncome = try? JSONDecoder().decode(Accounting.self, from: data) {
-                        completionHandler(jsonIncome, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(jsonIncome, nil)
+                        }
                     }
                     return
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Listing income was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Listing income was unsuccessful"))
+            }
         }
     }
     
@@ -190,13 +227,17 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonProfit = try? JSONDecoder().decode(Accounting.self, from: data) {
-                        completionHandler(jsonProfit, nil)
+                        DispatchQueue.main.async {
+                            completionHandler(jsonProfit, nil)
+                        }
                     }
                     return
                 }
             }
             
-            completionHandler(nil, ErrorType(description: "Listing profit was unsuccessful"))
+            DispatchQueue.main.async {
+                completionHandler(nil, ErrorType(description: "Listing profit was unsuccessful"))
+            }
         }
     }
     
@@ -222,13 +263,17 @@ class NetworkManager {
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
-                completionHandler(false)
                 print(responseJSON)
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
             }
         }
         
         task.resume()
-        completionHandler(true)
+        DispatchQueue.main.async {
+            completionHandler(true)
+        }
     }
     
 }

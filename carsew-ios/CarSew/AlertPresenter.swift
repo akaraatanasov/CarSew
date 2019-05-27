@@ -15,10 +15,7 @@ class AlertPresenter {
     func showAlert(from sender: UIViewController, withTitle title: String, andMessage message: String, buttonHandler handler: ((UIAlertAction) -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: handler))
-        
-        DispatchQueue.main.async {
-            sender.present(alertController, animated: true)
-        }
+        sender.present(alertController, animated: true)
     }
     
 }

@@ -16,6 +16,8 @@ class ItemsViewController: UIViewController {
     
     var selectedItem: Item?
     
+    var indicatorView: LoadingIndicator!
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var tableView: UITableView!
@@ -25,6 +27,7 @@ class ItemsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupView()
         loadItems()
     }
     
@@ -47,16 +50,22 @@ class ItemsViewController: UIViewController {
     
     // MARK: - Private
     
+    
+    private func setupView() {
+        indicatorView = LoadingIndicator(frame: view.frame)
+    }
+    
     private func loadItems() {
         // show loading indicator
+        indicatorView.show(from: view)
+        
         NetworkManager.sharedInstance.loadItems { [weak self] items, error in
             if let items = items {
                 self?.items = items
                 
-                DispatchQueue.main.async {
-                    // hide loading indicator
-                    self?.tableView.reloadData()
-                }
+                // hide loading indicator
+                self?.indicatorView.hide()
+                self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }

@@ -15,9 +15,7 @@ class AccountingViewController: UIViewController {
     var overallAccounting: Double? {
         didSet {
             if let overallAccounting = overallAccounting {
-                DispatchQueue.main.async { [weak self] in
-                    self?.overallAccountingLabel.text = "\(overallAccounting.rounded(toPlaces: 2))"
-                }
+                overallAccountingLabel.text = "\(overallAccounting.rounded(toPlaces: 2))"
             }
         }
     }
@@ -74,10 +72,8 @@ class AccountingViewController: UIViewController {
                 self?.overallAccounting = expenses.overall
                 self?.accountingItems = expenses.items
                 
-                DispatchQueue.main.async { [weak self] in
-                    // hide loading indicator
-                    self?.tableView.reloadData()
-                }
+                // hide loading indicator
+                self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
@@ -91,10 +87,8 @@ class AccountingViewController: UIViewController {
                 self?.overallAccounting = income.overall
                 self?.accountingItems = income.items
                 
-                DispatchQueue.main.async { [weak self] in
-                    // hide loading indicator
-                    self?.tableView.reloadData()
-                }
+                // hide loading indicator
+                self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
@@ -108,10 +102,8 @@ class AccountingViewController: UIViewController {
                 self?.overallAccounting = profit.overall
                 self?.accountingItems = profit.items
                 
-                DispatchQueue.main.async { [weak self] in
-                    // hide loading indicator
-                    self?.tableView.reloadData()
-                }
+                // hide loading indicator
+                self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }

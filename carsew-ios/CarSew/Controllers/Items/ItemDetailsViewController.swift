@@ -74,13 +74,11 @@ class ItemDetailsViewController: UIViewController {
         guard let itemId = item?.id else { return }
         NetworkManager.sharedInstance.produceItem(with: itemId) { [weak self] success, error in
             if let success = success {
-                DispatchQueue.main.async {
-                    if success {
-                        self?.delegate?.didProduceItem(with: itemId)
-                        self?.navigationController?.popViewController(animated: true)
-                    } else {
-                        self?.presentErrorAlert()
-                    }
+                if success {
+                    self?.delegate?.didProduceItem(with: itemId)
+                    self?.navigationController?.popViewController(animated: true)
+                } else {
+                    self?.presentErrorAlert()
                 }
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
