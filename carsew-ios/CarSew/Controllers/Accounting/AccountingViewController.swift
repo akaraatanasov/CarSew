@@ -22,12 +22,20 @@ class AccountingViewController: UIViewController {
     
     var accountingItems = [Item]()
     
+    var indicatorView: LoadingIndicator!
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var overallAccountingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupView()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,6 +44,10 @@ class AccountingViewController: UIViewController {
     }
     
     // MARK: - Private
+    
+    private func setupView() {
+        indicatorView = LoadingIndicator(frame: view.frame)
+    }
     
     private func loadAccounting() {
         switch navigationController?.tabBarItem.tag {
@@ -66,28 +78,27 @@ class AccountingViewController: UIViewController {
     // MARK: - Requests
     
     private func loadExpenses() {
-        // show loading indicator
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.loadExpenses { [weak self] expenses, error in
             if let expenses = expenses {
                 self?.overallAccounting = expenses.overall
                 self?.accountingItems = expenses.items
-                
-                // hide loading indicator
+                self?.indicatorView.hide()
                 self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
+                strongSelf.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
     
     private func loadIncome() {
-        // show loading indicator
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.loadIncome { [weak self] income, error in
             if let income = income {
                 self?.overallAccounting = income.overall
                 self?.accountingItems = income.items
-                
-                // hide loading indicator
+                self?.indicatorView.hide()
                 self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
@@ -96,29 +107,33 @@ class AccountingViewController: UIViewController {
     }
     
     private func loadProfit() {
-        // show loading indicator
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.loadProfit { [weak self] profit, error in
             if let profit = profit {
                 self?.overallAccounting = profit.overall
                 self?.accountingItems = profit.items
-                
-                // hide loading indicator
+                self?.indicatorView.hide()
                 self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
+                strongSelf.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
     
     private func sendItemSellRequest(with itemId: Int) {
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.sellItem(with: itemId) { [weak self] success, error in
             if let success = success {
                 if success {
+                    self?.indicatorView.hide()
                     self?.loadExpenses()
                 } else if let strongSelf = self {
+                    strongSelf.indicatorView.hide()
                     AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: "The item you tried to sell has already been sold!")
                 }
             } else if let error = error, let strongSelf = self { // TODO: - ASK Victor if there is any point of calling main.async in showAlert ...
+                strongSelf.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }

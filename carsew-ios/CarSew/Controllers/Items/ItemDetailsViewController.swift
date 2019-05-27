@@ -20,6 +20,8 @@ class ItemDetailsViewController: UIViewController {
     
     var item: Item?
     
+    var indicatorView: LoadingIndicator!
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -37,10 +39,15 @@ class ItemDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupView()
         displayItemDetails()
     }
     
     // MARK: - Private
+    
+    private func setupView() {
+        indicatorView = LoadingIndicator(frame: view.frame)
+    }
     
     private func displayItemDetails() {
         if let item = item {
@@ -52,35 +59,22 @@ class ItemDetailsViewController: UIViewController {
         }
     }
     
-    private func presentErrorAlert() {
-        let alertController = UIAlertController(title: "Error",
-                                                message: "The item you tried to produce has already been produced!",
-                                                preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
-    }
-    
-    private func presentSuccessAlert() {
-        let alertController = UIAlertController(title: "Success",
-                                                message: "The item was produced successfully!",
-                                                preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
-    }
-    
     private func sendItemProduceRequest() {
         guard let itemId = item?.id else { return }
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.produceItem(with: itemId) { [weak self] success, error in
             if let success = success {
                 if success {
+                    self?.indicatorView.hide()
                     self?.delegate?.didProduceItem(with: itemId)
                     self?.navigationController?.popViewController(animated: true)
-                } else {
-                    self?.presentErrorAlert()
+                } else if let strongSelf = self {
+                    self?.indicatorView.hide()
+                    AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error",
+                                                            andMessage: "The item you tried to produce has already been produced!")
                 }
             } else if let error = error, let strongSelf = self {
+                self?.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }

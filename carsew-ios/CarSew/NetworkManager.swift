@@ -28,7 +28,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonItems = try? JSONDecoder().decode([Item].self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(jsonItems, nil)
                         }
@@ -51,7 +51,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonCreateItemResponse = try? JSONDecoder().decode(ItemProperties.self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(jsonCreateItemResponse, nil)
                         }
@@ -74,7 +74,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(json.success, nil)
                         }
@@ -97,7 +97,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let json = try? JSONDecoder().decode(SuccessType.self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(json.success, nil)
                         }
@@ -120,7 +120,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonEmployees = try? JSONDecoder().decode([Employee].self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(jsonEmployees, nil)
                         }
@@ -143,7 +143,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonCreateEmployeeResponse = try? JSONDecoder().decode([ExperienceType].self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(jsonCreateEmployeeResponse, nil)
                         }
@@ -166,7 +166,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonEmployee = try? JSONDecoder().decode(Employee.self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(jsonEmployee, nil)
                         }
@@ -189,7 +189,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonExpenses = try? JSONDecoder().decode(Accounting.self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(jsonExpenses, nil)
                         }
@@ -212,7 +212,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonIncome = try? JSONDecoder().decode(Accounting.self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(jsonIncome, nil)
                         }
@@ -235,7 +235,7 @@ class NetworkManager {
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
                     if let jsonProfit = try? JSONDecoder().decode(Accounting.self, from: data) {
-//                        sleep(5)
+                        sleep(2)
                         DispatchQueue.main.async {
                             completionHandler(jsonProfit, nil)
                         }
@@ -280,9 +280,15 @@ class NetworkManager {
         }
         
         task.resume()
-        DispatchQueue.main.async {
-//            sleep(5)
-            completionHandler(true)
+//        DispatchQueue.main.async {
+//            completionHandler(true)
+//        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            sleep(2)
+            DispatchQueue.main.async {
+                completionHandler(true)
+            }
         }
     }
     

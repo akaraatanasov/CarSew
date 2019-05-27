@@ -22,6 +22,8 @@ class AddItemViewController: UIViewController {
     var colors = [ColorType]()
     var employees = [Employee]()
     
+    var indicatorView: LoadingIndicator!
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -38,6 +40,11 @@ class AddItemViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         getAllItemTypes()
     }
     
@@ -45,6 +52,8 @@ class AddItemViewController: UIViewController {
     
     private func setupView() {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
+        indicatorView = LoadingIndicator(frame: view.frame)
         
         let pickerView = UIPickerView()
         pickerView.delegate = self
@@ -62,29 +71,33 @@ class AddItemViewController: UIViewController {
     }
     
     private func getAllItemTypes() {
-        // show loading indicator
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.loadItemProperties { [weak self] createItems, error in
             if let createItems = createItems {
                 self?.itemTypes = createItems.types
                 self?.colors = createItems.colors
                 self?.employees = createItems.employees
-                
-                // hide loading indicator
+                self?.indicatorView.hide()
                 self?.pickerView?.reloadAllComponents()
             } else if let error = error, let strongSelf = self {
+                strongSelf.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
     
     private func create(item itemToCreate: ItemCreate) {
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.create(object: itemToCreate) { [weak self] success in
             DispatchQueue.main.async {
                 if success {
+                    self?.indicatorView.hide()
                     self?.delegate?.didCreateItem()
                     self?.dismiss(animated: true)
-                } else {
-                    self?.presentErrorAlert()
+                } else if let strongSelf = self {
+                    self?.indicatorView.hide()
+                    AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error",
+                                                            andMessage: "The item you tried to add has some incorect info. Please check your inputs!")
                 }
             }
         }
@@ -104,15 +117,6 @@ class AddItemViewController: UIViewController {
         
         guard let typeId = type?.id, let colorId = color?.id, let employeeId = employee?.id, let price = optionalPrice else { return nil }
         return ItemCreate(name: name, typeId: typeId, colorId: colorId, employeeId: employeeId, price: price)
-    }
-    
-    private func presentErrorAlert() {
-        let alertController = UIAlertController(title: "Error",
-                                                message: "The item you tried to add has some incorect info. Please check your inputs!",
-                                                preferredStyle: .alert)
-    
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
     }
     
     // MARK: - IBActions

@@ -20,6 +20,8 @@ class AddEmployeeViewController: UIViewController {
     
     var experienceTypes = [ExperienceType]()
     
+    var indicatorView: LoadingIndicator!
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -34,6 +36,11 @@ class AddEmployeeViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         getAllЕxperienceTypes()
     }
     
@@ -41,6 +48,8 @@ class AddEmployeeViewController: UIViewController {
     
     private func setupView() {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
+        indicatorView = LoadingIndicator(frame: view.frame)
         
         let pickerView = UIPickerView()
         pickerView.delegate = self
@@ -54,26 +63,30 @@ class AddEmployeeViewController: UIViewController {
     }
     
     private func getAllЕxperienceTypes() {
-        // show loading indicator
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.loadEmployeeProperties { [weak self] experienceTypes, error in
             if let experienceTypes = experienceTypes {
                 self?.experienceTypes = experienceTypes
-                
-                // hide loading indicator
+                self?.indicatorView.hide()
                 self?.pickerView?.reloadAllComponents()
             } else if let error = error, let strongSelf = self {
+                strongSelf.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
     
     private func create(employee employeeToCreate: EmployeeCreate) {
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.create(object: employeeToCreate) { [weak self] success in
             if success {
+                self?.indicatorView.hide()
                 self?.delegate?.didCreateEmployee()
                 self?.dismiss(animated: true)
-            } else {
-                self?.presentErrorAlert()
+            } else if let strongSelf = self {
+                strongSelf.indicatorView.hide()
+                AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error",
+                                                        andMessage: "The employee you tried to add has some incorect info. Please check your inputs!")
             }
         }
     }
@@ -88,15 +101,6 @@ class AddEmployeeViewController: UIViewController {
         
         guard let experienceId = experience?.id, let salary = optionalSalary else { return nil }
         return EmployeeCreate(name: name, salary: salary, experienceId: experienceId)
-    }
-    
-    private func presentErrorAlert() {
-        let alertController = UIAlertController(title: "Error",
-                                                message: "The employee you tried to add has some incorect info. Please check your inputs!",
-                                                preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
     }
     
     // MARK: - IBActions

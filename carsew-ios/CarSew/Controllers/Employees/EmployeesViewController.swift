@@ -16,6 +16,8 @@ class EmployeesViewController: UIViewController {
     
     var selectedEmployee: Employee?
     
+    var indicatorView: LoadingIndicator!
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var tableView: UITableView!
@@ -25,6 +27,7 @@ class EmployeesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupView()
         loadEmployees()
     }
     
@@ -46,15 +49,19 @@ class EmployeesViewController: UIViewController {
     
     // MARK: - Private
     
+    private func setupView() {
+        indicatorView = LoadingIndicator(frame: view.frame)
+    }
+    
     private func loadEmployees() {
-        // show loading indicator
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.loadEmployees { [weak self] employees, error in
             if let employees = employees {
                 self?.employees = employees
-                
-                // hide loading indicator
+                self?.indicatorView.hide()
                 self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
+                strongSelf.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         } 
@@ -96,7 +103,9 @@ extension EmployeesViewController: AddEmployeeDelegate {
     func didCreateEmployee() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             sleep(1)
-            self?.loadEmployees()
+            DispatchQueue.main.async {
+                self?.loadEmployees()
+            }
         }
     }
 }

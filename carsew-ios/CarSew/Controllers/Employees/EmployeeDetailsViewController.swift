@@ -17,6 +17,8 @@ class EmployeeDetailsViewController: UIViewController {
     
     var selectedItem: Item?
     
+    var indicatorView: LoadingIndicator!
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -29,7 +31,13 @@ class EmployeeDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupView()
         displayEmployeeDetails()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         loadEmployeeDetails()
     }
     
@@ -47,6 +55,10 @@ class EmployeeDetailsViewController: UIViewController {
     
     // MARK: - Private
     
+    private func setupView() {
+        indicatorView = LoadingIndicator(frame: view.frame)
+    }
+    
     private func displayEmployeeDetails() {
         if let employee = employee {
             nameLabel.text = employee.name
@@ -56,15 +68,15 @@ class EmployeeDetailsViewController: UIViewController {
     }
     
     private func loadEmployeeDetails() {
-        // TODO: - Request employee details (mainly items) by id (GET)
         guard let employeeId = employee?.id else { return }
+        indicatorView.show(from: view)
         NetworkManager.sharedInstance.loadEmployeeDetails(with: employeeId) { [weak self] employee, error in
             if let employeeItems = employee?.itemList {
                 self?.employeeItems = employeeItems
-                
-                // hide loading indicator
+                self?.indicatorView.hide()
                 self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
+                strongSelf.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
@@ -95,6 +107,6 @@ extension EmployeeDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedItem = employeeItems[indexPath.row]
-        performSegue(withIdentifier: "showItemDetailsFromEmployee", sender: self)
+//        performSegue(withIdentifier: "showItemDetailsFromEmployee", sender: self)
     }
 }

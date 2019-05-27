@@ -56,20 +56,16 @@ class ItemsViewController: UIViewController {
     }
     
     private func loadItems() {
-        // show loading indicator
         indicatorView.show(from: view)
-        
         NetworkManager.sharedInstance.loadItems { [weak self] items, error in
             if let items = items {
                 self?.items = items
-                
-                // hide loading indicator
                 self?.indicatorView.hide()
                 self?.tableView.reloadData()
             } else if let error = error, let strongSelf = self {
+                self?.indicatorView.hide()
                 AlertPresenter.sharedInstance.showAlert(from: strongSelf, withTitle: "Error", andMessage: error.localizedDescription)
             }
-            
         }
     }
 
@@ -110,7 +106,9 @@ extension ItemsViewController: AddItemDelegate {
     func didCreateItem() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             sleep(1) // backend is too slow to respond, waiting 1 second before listing all items again
-            self?.loadItems()
+            DispatchQueue.main.async {
+                self?.loadItems()
+            }
         }
     }
 }
