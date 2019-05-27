@@ -12,8 +12,12 @@ class LoadingIndicator: UIView {
     
     // MARK: - Constants
     
-    let width: CGFloat = 50.0
-    let height: CGFloat = 50.0
+    private let width: CGFloat = 50.0
+    private let height: CGFloat = 50.0
+    
+    // MARK: - Vars
+    
+    private var parentView: UIView!
     
     // MARK: - Inits
     
@@ -49,15 +53,32 @@ class LoadingIndicator: UIView {
     // MARK: - Public
     
     func show(from view: UIView) {
-        view.addSubview(self)
+        parentView = view
+        
+        parentView.addSubview(self)
         rotate(view: self)
+        
+        addDarkBackground(on: parentView)
     }
     
     func hide() {
         removeFromSuperview()
+        
+        removeDarkBackground(from: parentView)
     }
     
     // MARK: - Private
+    
+    private func addDarkBackground(on view: UIView) {
+        view.isUserInteractionEnabled = false
+        
+        view.alpha = 0.5
+    }
+    
+    private func removeDarkBackground(from view: UIView) {
+        view.isUserInteractionEnabled = true
+        view.alpha = 1.0
+    }
     
     private func rotate(view: UIView, rotationDuration: Double = 1.0, animationDuration: Double = 300.0) {
         let duration = animationDuration * 2
