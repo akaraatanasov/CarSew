@@ -8,6 +8,8 @@
 
 import UIKit
 
+// TODO: - Remove all sleep() methods - they are for loading indicator testing
+
 class NetworkManager {
     
     static let sharedInstance = NetworkManager()
